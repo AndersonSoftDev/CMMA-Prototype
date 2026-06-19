@@ -1,0 +1,25 @@
+HTTrack3.49-2+htsswf+htsjava launched on Fri, 19 Jun 2026 19:26:26 at https://demo.frontted.com/flowdash/120/index.html#fm:layout.rtl=false&default.mainNavbar.navbar=light&default.mainDrawer.sidebar=dark +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar
+(winhttrack -qwC2%Ps2u1%s%uN0%I0p3DaK0H0%kf2A25000%f#f -F "Mozilla/4.5 (compatible; HTTrack 3.0x; Windows 98)" -%F "<!-- Mirrored from %s%s by HTTrack Website Copier/3.x [XR&CO'2014], %s -->" -%l "en, *" https://demo.frontted.com/flowdash/120/index.html#fm:layout.rtl=false&default.mainNavbar.navbar=light&default.mainDrawer.sidebar=dark -O1 "C:\My Web Sites\CMM 1Prototype FINAL" +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar )
+
+Information, Warnings and Errors reported for this mirror:
+note:	the hts-log.txt file, and hts-cache folder, may contain sensitive information,
+	such as username/password authentication for websites mirrored in this project
+	do not share these files/folders if you want these information to remain private
+
+19:27:29	Error: 	"Not Found" (404) at link https://demo.frontted.com/flowdash/120/assets/css/app.rtl.css (from https://demo.frontted.com/flowdash/120/index.html)
+19:27:32	Error: 	"Not Found" (404) at link https://demo.frontted.com/flowdash/120/assets/css/vendor-material-icons.rtl.css (from https://demo.frontted.com/flowdash/120/index.html)
+19:27:49	Error: 	"Not Found" (404) at link https://demo.frontted.com/flowdash/120/assets/css/vendor-fontawesome-free.rtl.css (from https://demo.frontted.com/flowdash/120/index.html)
+19:27:49	Error: 	"Not Found" (404) at link https://demo.frontted.com/flowdash/120/assets/css/vendor-flatpickr.rtl.css (from https://demo.frontted.com/flowdash/120/index.html)
+19:27:49	Error: 	"Not Found" (404) at link https://demo.frontted.com/flowdash/120/assets/css/vendor-flatpickr-airbnb.rtl.css (from https://demo.frontted.com/flowdash/120/index.html)
+19:30:14	Error: 	"Not Found" (404) at link https://demo.frontted.com/flowdash/120/assets/images/choose/demo1.png (from https://demo.frontted.com/flowdash/120/profile.html)
+19:30:15	Error: 	"Not Found" (404) at link https://demo.frontted.com/flowdash/120/assets/css/vendor-dropzone.rtl.css (from https://demo.frontted.com/flowdash/120/edit-account.html)
+19:30:22	Error: 	"Not Found" (404) at link https://demo.frontted.com/flowdash/120/fluid-login.html (from https://demo.frontted.com/flowdash/120/fluid-dashboard.html)
+19:30:24	Error: 	"Not Found" (404) at link https://demo.frontted.com/flowdash/120/fixed-login.html (from https://demo.frontted.com/flowdash/120/fixed-dashboard.html)
+19:30:27	Error: 	"Not Found" (404) at link https://demo.frontted.com/flowdash/120/mini-login.html (from https://demo.frontted.com/flowdash/120/mini-dashboard.html)
+19:30:28	Error: 	"Not Found" (404) at link https://demo.frontted.com/flowdash/120/assets/css/vendor-quill.rtl.css (from https://demo.frontted.com/flowdash/120/ui-forms.html)
+19:30:28	Error: 	"Not Found" (404) at link https://demo.frontted.com/flowdash/120/assets/css/vendor-select2.rtl.css (from https://demo.frontted.com/flowdash/120/ui-forms.html)
+19:30:28	Error: 	"Not Found" (404) at link https://demo.frontted.com/flowdash/120/assets/css/vendor-ion-rangeslider.rtl.css (from https://demo.frontted.com/flowdash/120/ui-range-sliders.html)
+19:30:28	Error: 	"Not Found" (404) at link https://demo.frontted.com/flowdash/120/fluid-projects.html (from https://demo.frontted.com/flowdash/120/fluid-app-projects.html)
+
+HTTrack Website Copier/3.49-2 mirror complete in 4 minutes 2 seconds : 307 links scanned, 292 files written (45512962 bytes overall) [45656733 bytes received at 188664 bytes/sec], 24420 bytes transferred using HTTP compression in 1 files, ratio 32%, 30.7 requests per connection
+(14 errors, 0 warnings, 0 messages)
