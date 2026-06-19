@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pt" class="h-full">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CMM — Sistema de Cobrança de Tributos</title>
+    <link rel="icon" type="image/png" href="../assets/images/branding/cmm-logo.png">
+
+    <!-- Tailwind (CDN para protótipo). Em Angular, usar o plugin oficial + tailwind.config.js -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: { 400: '#FBBF24', 500: '#F59E0B', 600: '#D97706' }, // sol do brasão
+                    },
+                    fontFamily: { sans: ['Inter', 'system-ui', 'Segoe UI', 'sans-serif'] },
+                },
+            },
+        };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        .nav-scroll::-webkit-scrollbar { width: 6px; }
+        .nav-scroll::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 3px; }
+        .nav-scroll::-webkit-scrollbar-track { background: transparent; }
+
+        /* ---------- Sidebar recolhível ---------- */
+        #sidebar { transition: width .2s ease; }
+        #sidebar.is-collapsed { width: 5rem; }                       /* rail = 80px */
+        #sidebar.is-collapsed .sb-hide { display: none !important; } /* esconde rótulos/badges */
+        #sidebar.is-collapsed .nav-link { justify-content: center; }
+        #sidebar.is-collapsed .brand-block,
+        #sidebar.is-collapsed .account-block { justify-content: center; padding-left: 0; padding-right: 0; }
+
+        /* Tooltip (só visível quando recolhida) */
+        #sidebar.is-collapsed .nav-link { position: relative; }
+        #sidebar.is-collapsed .nav-link::after {
+            content: attr(data-tip);
+            position: absolute; left: calc(100% + 12px); top: 50%; transform: translateY(-50%);
+            white-space: nowrap; background: #1e293b; color: #fff;
+            font-size: 12px; font-weight: 500; padding: 4px 8px; border-radius: 6px;
+            opacity: 0; pointer-events: none; transition: opacity .12s ease; z-index: 50;
+        }
+        #sidebar.is-collapsed .nav-link:hover::after { opacity: 1; }
+    </style>
+</head>
+
+<body class="h-full bg-slate-50 font-sans text-slate-700 antialiased">
+
+    <!-- LAYOUT RAIZ: [ SIDEBAR full-height ] [ COLUNA: Topbar + Conteúdo ] -->
+    <div class="flex h-full overflow-hidden">
+
+        <!-- ============================= SIDEBAR ============================= -->
+        <aside id="sidebar" class="flex w-64 shrink-0 flex-col border-r border-slate-200 bg-white">
+
+            <!-- Bloco nobre da marca (h-16, alinhado à topbar) -->
+            <a href="#" class="brand-block flex h-16 shrink-0 items-center gap-3 border-b border-slate-200 px-5">
+                <img src="../assets/images/branding/cmm-logo.png" alt="Brasão de Marracuene" class="h-9 w-auto shrink-0">
+                <span class="sb-hide flex flex-col leading-none">
+                    <span class="text-[11px] font-medium uppercase tracking-wide text-slate-400">Município de</span>
+                    <span class="text-lg font-black leading-tight text-slate-800">Marracuene</span>
+                </span>
+            </a>
+
+            <!-- Navegação -->
+            <nav class="nav-scroll flex-1 space-y-7 overflow-y-auto px-3 py-5">
+
+                <!-- PRINCIPAL -->
+                <div>
+                    <p class="sb-hide mb-2 px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-400">Principal</p>
+                    <ul class="space-y-1">
+                        <li>
+                            <a href="#" data-tip="Painel" class="nav-link flex items-center gap-3 rounded-lg bg-sky-50 px-3 py-2.5 text-sm font-semibold text-sky-600">
+                                <svg class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6Zm0 9.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25Zm9.75-9.75A2.25 2.25 0 0 1 15.75 3.75H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6Zm0 9.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" /></svg>
+                                <span class="sb-hide">Painel</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" data-tip="Contribuintes" class="nav-link flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900">
+                                <svg class="h-5 w-5 shrink-0 text-slate-400" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" /></svg>
+                                <span class="sb-hide">Contribuintes</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- COBRANÇA -->
+                <div>
+                    <p class="sb-hide mb-2 px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-400">Cobrança</p>
+                    <ul class="space-y-1">
+                        <li>
+                            <a href="#" data-tip="Tributos & Taxas" class="nav-link group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900">
+                                <svg class="h-5 w-5 shrink-0 text-slate-400" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0 0 12 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75Z" /></svg>
+                                <span class="sb-hide">Tributos &amp; Taxas</span>
+                                <span class="sb-hide ml-auto flex h-5 w-5 items-center justify-center rounded-md text-slate-400 transition group-hover:bg-white group-hover:text-sky-600">
+                                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" data-tip="Guias de Pagamento" class="nav-link flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900">
+                                <svg class="h-5 w-5 shrink-0 text-slate-400" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" /></svg>
+                                <span class="sb-hide">Guias de Pagamento</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" data-tip="Pagamentos" class="nav-link flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900">
+                                <svg class="h-5 w-5 shrink-0 text-slate-400" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" /></svg>
+                                <span class="sb-hide">Pagamentos</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" data-tip="Dívidas em Atraso" class="nav-link flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900">
+                                <svg class="h-5 w-5 shrink-0 text-slate-400" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" /></svg>
+                                <span class="sb-hide">Dívidas em Atraso</span>
+                                <span class="sb-hide ml-auto inline-flex h-5 min-w-[20px] items-center justify-center rounded-full bg-gold-400 px-1.5 text-xs font-bold text-slate-900">12</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- CADASTRO -->
+                <div>
+                    <p class="sb-hide mb-2 px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-400">Cadastro</p>
+                    <ul class="space-y-1">
+                        <li>
+                            <a href="#" data-tip="Imóveis" class="nav-link flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900">
+                                <svg class="h-5 w-5 shrink-0 text-slate-400" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21a.75.75 0 0 1 .75.75V21" /></svg>
+                                <span class="sb-hide">Imóveis</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" data-tip="Estabelecimentos" class="nav-link flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900">
+                                <svg class="h-5 w-5 shrink-0 text-slate-400" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 .75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349M3.75 21V9.349m0 0a3.001 3.001 0 0 0 3.75-.615A2.993 2.993 0 0 0 9.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 0 0 2.25 1.016 2.99 2.99 0 0 0 2.25-1.015 3.001 3.001 0 0 0 3.75.614m-16.5 0a3.004 3.004 0 0 1-.621-4.72L4.318 3.44A1.5 1.5 0 0 1 5.378 3h13.243a1.5 1.5 0 0 1 1.06.44l1.19 1.189a3 3 0 0 1-.621 4.72m-13.5 8.65h3.75a.75.75 0 0 0 .75-.75V13.5a.75.75 0 0 0-.75-.75H6.75a.75.75 0 0 0-.75.75v3.75c0 .415.336.75.75.75Z" /></svg>
+                                <span class="sb-hide">Estabelecimentos</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Rodapé: conta -->
+            <div class="account-block flex items-center gap-3 border-t border-slate-200 px-4 py-3">
+                <img src="../assets/images/avatar/demi.png" alt="" class="h-9 w-9 shrink-0 rounded-full object-cover">
+                <div class="sb-hide min-w-0 leading-tight">
+                    <p class="truncate text-sm font-semibold text-slate-800">Conta Municipal</p>
+                    <p class="truncate text-xs text-slate-400">Operador de Cobrança</p>
+                </div>
+                <button class="sb-hide ml-auto rounded-md p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-600">
+                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" /></svg>
+                </button>
+            </div>
+        </aside>
+
+        <!-- ===================== COLUNA DIREITA ===================== -->
+        <div class="flex min-w-0 flex-1 flex-col">
+
+            <!-- ============================= TOPBAR ============================= -->
+            <header class="flex h-16 shrink-0 items-center gap-4 border-b border-slate-200 bg-white px-6">
+
+                <!-- Botão recolher/expandir sidebar -->
+                <button id="sidebarToggle" aria-label="Recolher menu"
+                        class="-ml-2 rounded-lg p-2 text-slate-500 transition hover:bg-slate-100">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>
+                </button>
+
+                <!-- Pesquisa: altura fixa, centrada, arredondada -->
+                <div class="relative w-full max-w-md">
+                    <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" /></svg>
+                    </span>
+                    <input type="text" placeholder="Pesquisar contribuinte, NUIT, guia…"
+                           class="h-10 w-full rounded-lg border border-slate-200 bg-slate-50 pl-10 pr-4 text-sm text-slate-700 placeholder:text-slate-400 transition focus:border-sky-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-100">
+                </div>
+
+                <!-- Ações à direita -->
+                <div class="ml-auto flex items-center gap-1">
+                    <button class="relative flex h-10 w-10 items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" /></svg>
+                        <span class="absolute right-2 top-2 h-2.5 w-2.5 rounded-full bg-gold-400 ring-2 ring-white"></span>
+                    </button>
+                    <span class="mx-1 h-6 w-px bg-slate-200"></span>
+                    <button class="flex items-center gap-2 rounded-lg py-1 pl-1 pr-2 transition hover:bg-slate-100">
+                        <img src="../assets/images/avatar/demi.png" alt="" class="h-9 w-9 rounded-full object-cover">
+                        <span class="hidden text-sm font-medium text-slate-700 sm:block">Adrian D.</span>
+                        <svg class="hidden h-4 w-4 text-slate-400 sm:block" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
+                    </button>
+                </div>
+            </header>
+
+            <!-- ============================= CONTEÚDO ============================= -->
+            <main class="flex-1 overflow-y-auto p-6 lg:p-8">
+                <nav class="mb-1 flex items-center gap-2 text-sm text-slate-400">
+                    <a href="#" class="hover:text-slate-600">Início</a><span>/</span>
+                    <span class="font-medium text-slate-600">Painel</span>
+                </nav>
+                <h1 class="mb-6 text-2xl font-bold text-slate-800">Painel</h1>
+
+                <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
+                    <div class="flex items-center gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:shadow-md">
+                        <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-sky-100 text-sky-600">
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" /></svg>
+                        </div>
+                        <div><p class="text-2xl font-bold text-slate-800">84.230</p><p class="text-xs font-medium uppercase tracking-wide text-slate-400">Total de Munícipes</p></div>
+                    </div>
+                    <div class="flex items-center gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:shadow-md">
+                        <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald-100 text-emerald-600">
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 0 0-10.026 0 1.106 1.106 0 0 0-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" /></svg>
+                        </div>
+                        <div><p class="text-2xl font-bold text-slate-800">3.157</p><p class="text-xs font-medium uppercase tracking-wide text-slate-400">Total de Viaturas</p></div>
+                    </div>
+                    <div class="flex items-center gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:shadow-md">
+                        <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gold-400/20 text-gold-600">
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
+                        </div>
+                        <div><p class="text-2xl font-bold text-slate-800">MT 4,82M</p><p class="text-xs font-medium uppercase tracking-wide text-slate-400">Receitas do Mês</p></div>
+                    </div>
+                    <div class="flex items-center gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:shadow-md">
+                        <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-rose-100 text-rose-600">
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" /></svg>
+                        </div>
+                        <div><p class="text-2xl font-bold text-slate-800">327</p><p class="text-xs font-medium uppercase tracking-wide text-slate-400">Processos Pendentes</p></div>
+                    </div>
+                </div>
+
+                <div class="mt-6 grid grid-cols-1 gap-5 xl:grid-cols-3">
+                    <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm xl:col-span-2">
+                        <h2 class="font-semibold text-slate-800">Receitas mensais — 2026</h2>
+                        <p class="text-sm text-slate-400">Cobrança de tributos (em milhões de MT)</p>
+                        <div class="mt-4 flex h-56 items-center justify-center rounded-lg bg-slate-50 text-sm text-slate-400">Gráfico</div>
+                    </div>
+                    <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+                        <h2 class="font-semibold text-slate-800">Processos por estado</h2>
+                        <p class="text-sm text-slate-400">Total acumulado</p>
+                        <div class="mt-4 flex h-56 items-center justify-center rounded-lg bg-slate-50 text-sm text-slate-400">Gráfico</div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Lógica de recolher (vanilla; em Angular usar um signal/serviço) -->
+    <script>
+        (function () {
+            var sidebar = document.getElementById('sidebar');
+            var toggle = document.getElementById('sidebarToggle');
+            var KEY = 'cmm.sidebar.collapsed';
+
+            if (localStorage.getItem(KEY) === '1') sidebar.classList.add('is-collapsed');
+
+            toggle.addEventListener('click', function () {
+                var collapsed = sidebar.classList.toggle('is-collapsed');
+                localStorage.setItem(KEY, collapsed ? '1' : '0');
+            });
+        })();
+    </script>
+</body>
+</html>
