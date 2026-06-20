@@ -125,7 +125,7 @@ button { font-family: inherit; }
   position: relative; z-index: 10;
   display: flex; width: 18rem; flex-shrink: 0; flex-direction: column;
   background: #fff; border-radius: 1rem; border: 1px solid var(--slate-200);
-  box-shadow: 0 12px 30px -10px rgba(15,23,42,.25);
+  box-shadow: 0 1px 2px rgba(15,23,42,.05);
   transition: width .2s ease;
 }
 .sidebar.is-collapsed { width: 5rem; }
@@ -147,7 +147,7 @@ button { font-family: inherit; }
 .account-block__initials {
   display: flex; height: 2.25rem; width: 2.25rem; flex-shrink: 0; align-items: center; justify-content: center;
   border-radius: 9999px; background: var(--brand-600); color: #fff;
-  font-size: .875rem; font-weight: 600; box-shadow: 0 0 0 2px var(--brand-100);
+  font-size: .875rem; font-weight: 600;
 }
 .account-block__info { display: flex; flex-direction: column; min-width: 0; flex: 1; line-height: 1.2; }
 .account-block__name { margin: 0; font-size: .875rem; font-weight: 600; color: var(--slate-800); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -170,7 +170,7 @@ button { font-family: inherit; }
   display: flex; align-items: center; gap: .5rem; margin: 0 0 .5rem; padding: 0 .75rem;
   font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--slate-400);
 }
-.nav-heading__dot { height: .375rem; width: .375rem; border-radius: 9999px; background: var(--gold-400); flex-shrink: 0; }
+.nav-heading__dot { display: none; }
 .nav-list { list-style: none; margin: 0; padding: 0; }
 .nav-list li + li { margin-top: .25rem; }
 
@@ -184,15 +184,15 @@ button { font-family: inherit; }
 .nav-link:hover { background: var(--slate-50); color: var(--slate-900); }
 .nav-link__icon { height: 1.25rem; width: 1.25rem; flex-shrink: 0; color: var(--slate-500); }
 .nav-link:hover .nav-link__icon { color: var(--slate-600); }
-/* Activo: fundo/texto verdes + marcação e ícone DOURADOS (o sol do brasão) */
-.nav-link.is-active { background: var(--brand-50); color: var(--brand-700); font-weight: 600; border-left-color: var(--gold-500); }
-.nav-link.is-active .nav-link__icon { color: var(--gold-600); }
+/* Activo: realce verde simples (fundo mais forte + barra verde sólida) */
+.nav-link.is-active { background: var(--brand-100); color: #0F5B43; font-weight: 600; border-left-color: var(--brand-600); }
+.nav-link.is-active .nav-link__icon { color: var(--brand-700); }
 
 /* Badge (ex.: Dívidas em Atraso) */
 .nav-badge {
   margin-left: auto; display: inline-flex; height: 1.25rem; min-width: 20px;
   align-items: center; justify-content: center; border-radius: 9999px;
-  background: var(--gold-400); padding: 0 .375rem; font-size: .75rem; font-weight: 700; color: var(--slate-900);
+  background: var(--slate-100); padding: 0 .375rem; font-size: .75rem; font-weight: 600; color: var(--slate-600);
 }
 
 /* Item com submenu */
@@ -232,18 +232,34 @@ button { font-family: inherit; }
    ============================================================ */
 .content { flex: 1; min-width: 0; overflow-y: auto; }
 
-/* ---------- Hero de boas-vindas ---------- */
-.hero {
-  position: relative; overflow: hidden; border-radius: 1rem; padding: 1.5rem; margin-bottom: 1.5rem;
-  color: #fff; background-image: linear-gradient(135deg, var(--brand-700) 0%, var(--brand-600) 50%, var(--brand-500) 100%);
-  box-shadow: 0 1px 2px rgba(15,23,42,.05);
+/* ---------- Banner de boas-vindas (cartão claro) ---------- */
+.welcome {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: 1rem 1.5rem; margin-bottom: 1.5rem;
+  border-radius: 1rem; border: 1px solid rgba(15,23,42,.05); background: #fff; padding: 1.25rem 1.5rem;
+  box-shadow: 0 1px 2px rgba(15,23,42,.04), 0 12px 28px -14px rgba(15,23,42,.18);
 }
-.hero__seal { pointer-events: none; position: absolute; bottom: -5rem; right: -2.5rem; height: 18rem; width: auto; opacity: .06; transform: rotate(6deg); }
-.hero__inner { position: relative; max-width: 42rem; }
-.hero__date { display: inline-flex; align-items: center; gap: .375rem; border-radius: 9999px; background: rgba(255,255,255,.15); padding: .25rem .75rem; font-size: .75rem; font-weight: 500; box-shadow: inset 0 0 0 1px rgba(255,255,255,.2); }
-.hero__date svg { height: .875rem; width: .875rem; }
-.hero__title { margin: 1rem 0 0; font-size: 1.7rem; font-weight: 700; line-height: 1.2; }
-.hero__text { margin: .5rem 0 0; font-size: .875rem; line-height: 1.6; color: rgba(255,255,255,.85); max-width: 36rem; }
+.welcome__left { display: flex; align-items: center; gap: 1rem; min-width: 0; }
+.welcome__icon {
+  display: none; height: 3rem; width: 3rem; flex-shrink: 0; align-items: center; justify-content: center;
+  border-radius: .75rem; background: var(--brand-50); color: var(--brand-600); box-shadow: inset 0 0 0 1px var(--brand-100);
+}
+.welcome__icon svg { height: 1.5rem; width: 1.5rem; }
+@media (min-width: 640px) { .welcome__icon { display: flex; } }
+.welcome__crumb { display: flex; align-items: center; gap: .375rem; font-size: .75rem; font-weight: 500; color: var(--slate-400); }
+.welcome__crumb svg { height: .875rem; width: .875rem; }
+.welcome__crumb-current { color: var(--slate-600); }
+.welcome__title { margin: .25rem 0 0; font-size: 1.5rem; font-weight: 700; line-height: 1.2; color: var(--slate-800); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.welcome__title span { color: var(--brand-700); }
+.welcome__text { margin: .25rem 0 0; font-size: .875rem; color: var(--slate-500); }
+.welcome__action {
+  display: inline-flex; align-items: center; gap: .5rem; flex-shrink: 0; border: 0; cursor: pointer;
+  border-radius: .75rem; background: var(--brand-600); padding: .625rem 1rem;
+  font-size: .875rem; font-weight: 600; color: #fff; box-shadow: 0 1px 2px rgba(15,23,42,.05);
+  transition: background-color .15s ease;
+}
+.welcome__action:hover { background: var(--brand-700); }
+.welcome__action svg { height: 1rem; width: 1rem; }
 
 /* ---------- Cartões de estatística (minimalista flat) ---------- */
 .stats-grid { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
