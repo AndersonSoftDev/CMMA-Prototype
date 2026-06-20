@@ -3,22 +3,22 @@
    Sistema de Cobrança de Tributos
    ------------------------------------------------------------
    Paleta
-     Primary    #2563EB   botões principais, links, item activo
-     Success    #10B981   ações positivas (pagar, aprovar)
-     Warning    #F59E0B   alertas / indicadores
-     Danger     #EF4444   erros / em atraso
-     Dark       #1F2937   menu lateral
-     Background #F8FAFC   fundo da aplicação
+     Primary    #1F9E74   botões principais, links, item activo (verde do rio)
+     Success    #16A34A   ações positivas (pagar, aprovar)
+     Warning    #E0A526   alertas / indicadores (dourado do sol)
+     Danger     #CB4B43   erros / em atraso (vermelho-barro)
+     Dark       #22303F   menu lateral (ardósia)
+     Background #F5F7F9   fundo da aplicação
    Carregado DEPOIS de app.css para sobrepor o tema.
    ============================================================ */
 :root {
   /* Paleta derivada do brasão de Marracuene (tons dessaturados) */
-  --brand-primary: #1B6EC2;       /* azul institucional — céu */
-  --brand-primary-dark: #155AA0;
-  --brand-primary-light: #5FA0E0;
-  --brand-primary-soft: rgba(27, 110, 194, 0.12);
-  --brand-success: #1F9E74;       /* verde-turquesa — rio + vegetação */
-  --brand-success-dark: #18815F;
+  --brand-primary: #1F9E74;       /* verde-turquesa — rio + vegetação */
+  --brand-primary-dark: #18815F;
+  --brand-primary-light: #5FC2A0;
+  --brand-primary-soft: rgba(31, 158, 116, 0.12);
+  --brand-success: #16A34A;       /* verde-esmeralda — ações positivas (distinto do principal) */
+  --brand-success-dark: #128A3E;
   --brand-warning: #E0A526;       /* dourado suave — sol */
   --brand-danger: #CB4B43;        /* vermelho-barro discreto */
   --brand-dark: #22303F;          /* ardósia — faixa + hipopótamo (sidebar) */
@@ -38,40 +38,41 @@ body,
 }
 
 /* ============================================================
-   TOPBAR — branca, linha azul fina no topo, elementos discretos
+   TOPBAR — verde cheio, texto e ícones brancos
    ============================================================ */
 .navbar.navbar-light,
 .mdk-header .navbar {
-  background-color: #ffffff !important;
-  border-top: 3px solid var(--brand-primary) !important;
-  border-bottom: 1px solid var(--brand-border) !important;
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04) !important;
+  background-color: var(--brand-primary) !important;
+  border-top: 0 !important;
+  border-bottom: 1px solid var(--brand-primary-dark) !important;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12) !important;
 }
 .navbar .navbar-brand,
 .navbar .navbar-brand span {
-  color: var(--brand-ink) !important;
+  color: #ffffff !important;
   font-weight: 700 !important;
 }
-/* Pesquisa discreta */
+/* Pesquisa sobre fundo verde — translúcida */
 .navbar .search-form .form-control {
-  background-color: #F1F5F9 !important;
-  color: var(--brand-ink) !important;
+  background-color: rgba(255, 255, 255, 0.16) !important;
+  color: #ffffff !important;
   border: 1px solid transparent !important;
   border-radius: 8px !important;
 }
-.navbar .search-form .form-control::placeholder { color: #94A3B8 !important; }
+.navbar .search-form .form-control::placeholder { color: rgba(255, 255, 255, 0.7) !important; }
 .navbar .search-form .form-control:focus {
-  background-color: #ffffff !important;
-  border-color: var(--brand-primary) !important;
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  color: var(--brand-ink) !important;
+  border-color: #ffffff !important;
 }
-/* Ícones (pesquisa, notificações, perfil) discretos */
+/* Ícones (pesquisa, notificações, perfil) brancos */
 .navbar .search-form .btn,
 .navbar .nav-link,
 .navbar .material-icons {
-  color: #64748B !important;
+  color: #ffffff !important;
 }
 .navbar .nav-link:hover,
-.navbar .nav-link:hover .material-icons { color: var(--brand-primary) !important; }
+.navbar .nav-link:hover .material-icons { color: rgba(255, 255, 255, 0.75) !important; }
 
 /* ============================================================
    MENU LATERAL — claro / minimalista, activo azul
@@ -96,16 +97,17 @@ body,
   align-items: center;
   gap: 0.6rem;
   padding: 0.95rem 1rem;
-  border-bottom: 1px solid var(--brand-border);
+  background-color: var(--brand-primary);
+  border-bottom: 1px solid var(--brand-primary-dark);
   text-decoration: none !important;
 }
-.sidebar-brand-cmm:hover { background-color: #F8FAFC; }
+.sidebar-brand-cmm:hover { background-color: var(--brand-primary-dark); }
 .sidebar-brand-cmm__logo { height: 38px; width: auto; flex: 0 0 auto; }
 .sidebar-brand-cmm__text {
   font-size: 0.82rem;
   font-weight: 700;
   line-height: 1.15;
-  color: var(--brand-ink) !important;
+  color: #ffffff !important;
 }
 
 /* Cabeçalhos de secção */

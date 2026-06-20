@@ -1,720 +1,351 @@
 <!DOCTYPE html>
-<html lang="en"
-      dir="ltr">
-
-    
-<!-- Mirrored from demo.frontted.com/flowdash/120/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 19 Jun 2026 17:26:30 GMT -->
+<html lang="pt">
 <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible"
-              content="IE=edge">
-        <meta name="viewport"
-              content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Dashboard</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CMM — Sistema de Cobrança de Tributos</title>
+    <link rel="icon" type="image/png" href="../assets/images/branding/cmm-logo.png">
 
-        <!-- Prevent the demo from appearing in search engines -->
-        <meta name="robots"
-              content="noindex">
+    <!-- Tipografia -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-        <!-- Perfect Scrollbar -->
-        <link type="text/css"
-              href="../assets/css/vendor/perfect-scrollbar.css"
-              rel="stylesheet">
+    <!-- Estilo da aplicação (sem Tailwind) -->
+    <link type="text/css" href="../assets/css/shared/cmm-app.css?v=1" rel="stylesheet">
+</head>
 
-        <!-- App CSS -->
-        <link type="text/css"
-              href="../assets/css/shared/app.css"
-              rel="stylesheet">
-        <link type="text/css"
-              href="../assets/css/shared/app.rtl.css"
-              rel="stylesheet">
-        <link rel="icon" type="image/png" href="../assets/images/branding/cmm-logo.png">
-        <!-- Brand Marracuene -->
-        <link type="text/css"
-              href="../assets/css/shared/brand.css?v=2"
-              rel="stylesheet">
+<body>
+    <!-- LAYOUT RAIZ: [ SIDEBAR ] [ COLUNA: Topbar + Conteúdo ] -->
+    <div class="app">
 
-        <!-- Material Design Icons -->
-        <link type="text/css"
-              href="../assets/css/vendor/vendor-material-icons.css"
-              rel="stylesheet">
-        <link type="text/css"
-              href="../assets/css/vendor/vendor-material-icons.rtl.css"
-              rel="stylesheet">
+        <!-- ============================= SIDEBAR ============================= -->
+        <aside id="sidebar" class="sidebar">
 
-        <!-- Font Awesome FREE Icons -->
-        <link type="text/css"
-              href="../assets/css/vendor/vendor-fontawesome-free.css"
-              rel="stylesheet">
-        <link type="text/css"
-              href="../assets/css/vendor/vendor-fontawesome-free.rtl.css"
-              rel="stylesheet">
+            <!-- Bloco da marca -->
+            <a href="Tela principal.html" class="brand-block">
+                <img src="../assets/images/branding/cmm-logo.png" alt="Brasão de Marracuene" class="brand-block__logo">
+                <span class="sb-hide brand-block__name">
+                    <span class="brand-block__sup">Município de</span>
+                    <span class="brand-block__title">Marracuene</span>
+                </span>
+            </a>
 
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async
-                src="https://www.googletagmanager.com/gtag/js?id=UA-133433427-1"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
+            <!-- Navegação -->
+            <nav class="nav-scroll">
 
-            function gtag() {
-                dataLayer.push(arguments);
-            }
-            gtag('js', new Date());
-            gtag('config', 'UA-133433427-1');
-        </script>
-
-        <!-- Flatpickr -->
-        <link type="text/css"
-              href="../assets/css/vendor/vendor-flatpickr.css"
-              rel="stylesheet">
-        <link type="text/css"
-              href="../assets/css/vendor/vendor-flatpickr.rtl.css"
-              rel="stylesheet">
-        <link type="text/css"
-              href="../assets/css/vendor/vendor-flatpickr-airbnb.css"
-              rel="stylesheet">
-        <link type="text/css"
-              href="../assets/css/vendor/vendor-flatpickr-airbnb.rtl.css"
-              rel="stylesheet">
-
-        <!-- Vector Maps -->
-        <link type="text/css"
-              href="../assets/js/vendor/jqvmap/jqvmap.min.css"
-              rel="stylesheet">
-
-    </head>
-
-    <body class="layout-default">
-
-        <div class="preloader"></div>
-
-        <!-- Header Layout -->
-        <div class="mdk-header-layout js-mdk-header-layout">
-
-            <!-- Header -->
-
-            <div id="header"
-                 class="mdk-header js-mdk-header m-0"
-                 data-fixed>
-                <div class="mdk-header__content">
-
-                    <div class="navbar navbar-expand-sm navbar-main navbar-dark bg-dark  pr-0"
-                         id="navbar"
-                         data-primary>
-                        <div class="container-fluid p-0">
-
-                            <!-- Navbar toggler -->
-
-                            <button class="navbar-toggler navbar-toggler-right d-block d-lg-none"
-                                    type="button"
-                                    data-toggle="sidebar">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-
-                            <!-- Navbar Brand -->
-                            <a href="Tela principal.html"
-                               class="navbar-brand ">
-
-                                <img class="mr-2" src="../assets/images/branding/cmm-logo.png" alt="Município de Marracuene" style="height:38px;width:auto;">
-
-                                <span>Marracuene</span>
+                <!-- PRINCIPAL -->
+                <div class="nav-group">
+                    <p class="sb-hide nav-heading">Principal</p>
+                    <ul class="nav-list">
+                        <li>
+                            <a href="Tela principal.html" data-tip="Painel" class="nav-link is-active">
+                                <svg class="nav-link__icon" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6Zm0 9.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25Zm9.75-9.75A2.25 2.25 0 0 1 15.75 3.75H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6Zm0 9.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" /></svg>
+                                <span class="sb-hide">Painel</span>
                             </a>
-
-                            <form class="search-form d-none d-sm-flex flex"
-                                  action="https://demo.frontted.com/flowdash/120/index.html">
-                                <button class="btn"
-                                        type="submit"><i class="material-icons">search</i></button>
-                                <input type="text"
-                                       class="form-control"
-                                       placeholder="Search">
-                            </form>
-
-                            <ul class="nav navbar-nav ml-auto d-none d-md-flex">
-                                <li class="nav-item dropdown">
-                                    <a href="#notifications_menu"
-                                       class="nav-link dropdown-toggle"
-                                       data-toggle="dropdown"
-                                       data-caret="false">
-                                        <i class="material-icons nav-icon navbar-notifications-indicator">notifications</i>
-                                    </a>
-                                    <div id="notifications_menu"
-                                         class="dropdown-menu dropdown-menu-right navbar-notifications-menu">
-                                        <div class="dropdown-item d-flex align-items-center py-2">
-                                            <span class="flex navbar-notifications-menu__title m-0">Notifications</span>
-                                            <a href="javascript:void(0)"
-                                               class="text-muted"><small>Clear all</small></a>
-                                        </div>
-                                        <div class="navbar-notifications-menu__content"
-                                             data-perfect-scrollbar>
-                                            <div class="py-2">
-
-                                                <div class="dropdown-item d-flex">
-                                                    <div class="mr-3">
-                                                        <div class="avatar avatar-sm"
-                                                             style="width: 32px; height: 32px;">
-                                                            <img src="../assets/images/256_daniel-gaffey-1060698-unsplash.jpg"
-                                                                 alt="Avatar"
-                                                                 class="avatar-img rounded-circle">
-                                                        </div>
-                                                    </div>
-                                                    <div class="flex">
-                                                        <a href="#">A.Demian</a> left a comment on <a href="#">FlowDash</a><br>
-                                                        <small class="text-muted">1 minute ago</small>
-                                                    </div>
-                                                </div>
-                                                <div class="dropdown-item d-flex">
-                                                    <div class="mr-3">
-                                                        <a href="#">
-                                                            <div class="avatar avatar-xs"
-                                                                 style="width: 32px; height: 32px;">
-                                                                <span class="avatar-title bg-purple rounded-circle"><i class="material-icons icon-16pt">person_add</i></span>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                    <div class="flex">
-                                                        New user <a href="#">Peter Parker</a> signed up.<br>
-                                                        <small class="text-muted">1 hour ago</small>
-                                                    </div>
-                                                </div>
-                                                <div class="dropdown-item d-flex">
-                                                    <div class="mr-3">
-                                                        <a href="#">
-                                                            <div class="avatar avatar-xs"
-                                                                 style="width: 32px; height: 32px;">
-                                                                <span class="avatar-title rounded-circle">JD</span>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                    <div class="flex">
-                                                        <a href="#">Big Joe</a> <small class="text-muted">wrote:</small><br>
-                                                        <div>Hey, how are you? What about our next meeting</div>
-                                                        <small class="text-muted">2 minutes ago</small>
-                                                    </div>
-                                                </div>
-
-                                                <div class="dropdown-item d-flex">
-                                                    <div class="mr-3">
-                                                        <div class="avatar avatar-sm"
-                                                             style="width: 32px; height: 32px;">
-                                                            <img src="../assets/images/256_daniel-gaffey-1060698-unsplash.jpg"
-                                                                 alt="Avatar"
-                                                                 class="avatar-img rounded-circle">
-                                                        </div>
-                                                    </div>
-                                                    <div class="flex">
-                                                        <a href="#">A.Demian</a> left a comment on <a href="#">FlowDash</a><br>
-                                                        <small class="text-muted">1 minute ago</small>
-                                                    </div>
-                                                </div>
-                                                <div class="dropdown-item d-flex">
-                                                    <div class="mr-3">
-                                                        <a href="#">
-                                                            <div class="avatar avatar-xs"
-                                                                 style="width: 32px; height: 32px;">
-                                                                <span class="avatar-title bg-purple rounded-circle"><i class="material-icons icon-16pt">person_add</i></span>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                    <div class="flex">
-                                                        New user <a href="#">Peter Parker</a> signed up.<br>
-                                                        <small class="text-muted">1 hour ago</small>
-                                                    </div>
-                                                </div>
-                                                <div class="dropdown-item d-flex">
-                                                    <div class="mr-3">
-                                                        <a href="#">
-                                                            <div class="avatar avatar-xs"
-                                                                 style="width: 32px; height: 32px;">
-                                                                <span class="avatar-title rounded-circle">JD</span>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                    <div class="flex">
-                                                        <a href="#">Big Joe</a> <small class="text-muted">wrote:</small><br>
-                                                        <div>Hey, how are you? What about our next meeting</div>
-                                                        <small class="text-muted">2 minutes ago</small>
-                                                    </div>
-                                                </div>
-
-                                                <div class="dropdown-item d-flex">
-                                                    <div class="mr-3">
-                                                        <div class="avatar avatar-sm"
-                                                             style="width: 32px; height: 32px;">
-                                                            <img src="../assets/images/256_daniel-gaffey-1060698-unsplash.jpg"
-                                                                 alt="Avatar"
-                                                                 class="avatar-img rounded-circle">
-                                                        </div>
-                                                    </div>
-                                                    <div class="flex">
-                                                        <a href="#">A.Demian</a> left a comment on <a href="#">FlowDash</a><br>
-                                                        <small class="text-muted">1 minute ago</small>
-                                                    </div>
-                                                </div>
-                                                <div class="dropdown-item d-flex">
-                                                    <div class="mr-3">
-                                                        <a href="#">
-                                                            <div class="avatar avatar-xs"
-                                                                 style="width: 32px; height: 32px;">
-                                                                <span class="avatar-title bg-purple rounded-circle"><i class="material-icons icon-16pt">person_add</i></span>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                    <div class="flex">
-                                                        New user <a href="#">Peter Parker</a> signed up.<br>
-                                                        <small class="text-muted">1 hour ago</small>
-                                                    </div>
-                                                </div>
-                                                <div class="dropdown-item d-flex">
-                                                    <div class="mr-3">
-                                                        <a href="#">
-                                                            <div class="avatar avatar-xs"
-                                                                 style="width: 32px; height: 32px;">
-                                                                <span class="avatar-title rounded-circle">JD</span>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                    <div class="flex">
-                                                        <a href="#">Big Joe</a> <small class="text-muted">wrote:</small><br>
-                                                        <div>Hey, how are you? What about our next meeting</div>
-                                                        <small class="text-muted">2 minutes ago</small>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                        <a href="javascript:void(0);"
-                                           class="dropdown-item text-center navbar-notifications-menu__footer">View All</a>
-                                    </div>
-                                </li>
-                            </ul>
-
-                            <ul class="nav navbar-nav d-none d-sm-flex border-left navbar-height align-items-center">
-                                <li class="nav-item dropdown">
-                                    <a href="#account_menu"
-                                       class="nav-link dropdown-toggle"
-                                       data-toggle="dropdown"
-                                       data-caret="false">
-                                        <span class="mr-1 d-flex-inline">
-                                            <span class="text-light">Adrian D.</span>
-                                        </span>
-                                        <img src="../assets/images/avatar/demi.png"
-                                             class="rounded-circle"
-                                             width="32"
-                                             alt="Frontted">
-                                    </a>
-                                    <div id="account_menu"
-                                         class="dropdown-menu dropdown-menu-right">
-                                        <div class="dropdown-item-text dropdown-item-text--lh">
-                                            <div><strong>Adrian Demian</strong></div>
-                                            <div class="text-muted">@adriandemian</div>
-                                        </div>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item active"
-                                           href="index.html"><i class="material-icons">dvr</i> Dashboard</a>
-                                        <a class="dropdown-item"
-                                           href="profile.html"><i class="material-icons">account_circle</i> My profile</a>
-                                        <a class="dropdown-item"
-                                           href="edit-account.html"><i class="material-icons">edit</i> Edit account</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item"
-                                           href="../auth/login.html"><i class="material-icons">exit_to_app</i> Logout</a>
-                                    </div>
-                                </li>
-                            </ul>
-
-                        </div>
-                    </div>
-
+                        </li>
+                        <li>
+                            <a href="#" data-tip="Contribuintes" class="nav-link">
+                                <svg class="nav-link__icon" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" /></svg>
+                                <span class="sb-hide">Contribuintes</span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
+
+                <!-- COBRANÇA -->
+                <div class="nav-group">
+                    <p class="sb-hide nav-heading">Cobrança</p>
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="#" data-tip="Tributos & Taxas" data-submenu-toggle class="nav-link">
+                                <svg class="nav-link__icon" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0 0 12 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75Z" /></svg>
+                                <span class="sb-hide">Tributos &amp; Taxas</span>
+                                <svg class="sb-hide nav-caret" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
+                            </a>
+                            <ul class="sb-hide submenu">
+                                <li><a href="#" class="nav-link">Imposto Predial (IPRA)</a></li>
+                                <li><a href="#" class="nav-link">Imposto Pessoal (IPA)</a></li>
+                                <li><a href="#" class="nav-link">Atividade Económica</a></li>
+                                <li><a href="#" class="nav-link">Mercados &amp; Feiras</a></li>
+                                <li><a href="#" class="nav-link">Licenças</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" data-tip="Guias de Pagamento" class="nav-link">
+                                <svg class="nav-link__icon" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" /></svg>
+                                <span class="sb-hide">Guias de Pagamento</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" data-tip="Pagamentos" class="nav-link">
+                                <svg class="nav-link__icon" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" /></svg>
+                                <span class="sb-hide">Pagamentos</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" data-tip="Dívidas em Atraso" class="nav-link">
+                                <svg class="nav-link__icon" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" /></svg>
+                                <span class="sb-hide">Dívidas em Atraso</span>
+                                <span class="sb-hide nav-badge">12</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- CADASTRO -->
+                <div class="nav-group">
+                    <p class="sb-hide nav-heading">Cadastro</p>
+                    <ul class="nav-list">
+                        <li>
+                            <a href="#" data-tip="Imóveis" class="nav-link">
+                                <svg class="nav-link__icon" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21a.75.75 0 0 1 .75.75V21" /></svg>
+                                <span class="sb-hide">Imóveis</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" data-tip="Estabelecimentos" class="nav-link">
+                                <svg class="nav-link__icon" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 .75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349M3.75 21V9.349m0 0a3.001 3.001 0 0 0 3.75-.615A2.993 2.993 0 0 0 9.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 0 0 2.25 1.016 2.99 2.99 0 0 0 2.25-1.015 3.001 3.001 0 0 0 3.75.614m-16.5 0a3.004 3.004 0 0 1-.621-4.72L4.318 3.44A1.5 1.5 0 0 1 5.378 3h13.243a1.5 1.5 0 0 1 1.06.44l1.19 1.189a3 3 0 0 1-.621 4.72m-13.5 8.65h3.75a.75.75 0 0 0 .75-.75V13.5a.75.75 0 0 0-.75-.75H6.75a.75.75 0 0 0-.75.75v3.75c0 .415.336.75.75.75Z" /></svg>
+                                <span class="sb-hide">Estabelecimentos</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- GESTÃO -->
+                <div class="nav-group">
+                    <p class="sb-hide nav-heading">Gestão</p>
+                    <ul class="nav-list">
+                        <li>
+                            <a href="#" data-tip="Relatórios" class="nav-link">
+                                <svg class="nav-link__icon" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" /></svg>
+                                <span class="sb-hide">Relatórios</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" data-tip="Utilizadores" class="nav-link">
+                                <svg class="nav-link__icon" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" /></svg>
+                                <span class="sb-hide">Utilizadores</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" data-tip="Definições" class="nav-link">
+                                <svg class="nav-link__icon" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.24-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /></svg>
+                                <span class="sb-hide">Definições</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Rodapé: conta -->
+            <div class="account-block">
+                <img src="../assets/images/256_michael-dam-258165-unsplash.jpg" alt="" class="account-block__avatar">
+                <div class="sb-hide account-block__info">
+                    <p class="account-block__name">Conta Municipal</p>
+                    <p class="account-block__role">Operador de Cobrança</p>
+                </div>
+                <button class="sb-hide account-block__more" aria-label="Opções da conta">
+                    <svg class="icon-6" style="height:1.25rem;width:1.25rem;" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" /></svg>
+                </button>
             </div>
+        </aside>
 
-            <!-- // END Header -->
+        <!-- ===================== COLUNA DIREITA ===================== -->
+        <div class="main-col">
 
-            <!-- Header Layout Content -->
-            <div class="mdk-header-layout__content">
+            <!-- ============================= TOPBAR ============================= -->
+            <header class="topbar">
+                <button id="sidebarToggle" class="topbar__toggle" aria-label="Recolher menu">
+                    <svg class="icon-6" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>
+                </button>
 
-                <div class="mdk-drawer-layout js-mdk-drawer-layout"
-                     data-push
-                     data-responsive-width="992px">
-                    <div class="mdk-drawer-layout__content page">
+                <div class="search">
+                    <span class="search__icon">
+                        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" /></svg>
+                    </span>
+                    <input type="text" class="search__input" placeholder="Pesquisar contribuinte, NUIT, guia…">
+                </div>
 
-                        <div class="container-fluid page__heading-container">
-                            <div class="page__heading">
-                                <nav aria-label="breadcrumb">
-                                    <ol class="breadcrumb mb-0">
-                                        <li class="breadcrumb-item"><a href="Tela principal.html">Início</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Painel</li>
-                                    </ol>
-                                </nav>
-                                <h1 class="m-0">Painel</h1>
-                            </div>
+                <div class="topbar__actions">
+                    <button class="topbar__btn" aria-label="Notificações">
+                        <svg class="icon-6" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" /></svg>
+                        <span class="topbar__dot"></span>
+                    </button>
+                    <span class="topbar__divider"></span>
+                    <button class="topbar__user">
+                        <img src="../assets/images/256_michael-dam-258165-unsplash.jpg" alt="" class="topbar__avatar">
+                        <span class="topbar__username">Adrian D.</span>
+                        <svg class="topbar__chevron" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
+                    </button>
+                </div>
+            </header>
+
+            <!-- ============================= CONTEÚDO ============================= -->
+            <main class="content">
+                <nav class="breadcrumb">
+                    <a href="Tela principal.html">Início</a><span>/</span>
+                    <span class="breadcrumb__current">Painel</span>
+                </nav>
+                <h1 class="page-title">Painel</h1>
+
+                <!-- Cartões de estatística -->
+                <div class="stats-grid">
+                    <div class="stat">
+                        <div class="stat__icon stat__icon--blue">
+                            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" /></svg>
                         </div>
-
-                        <div class="container-fluid page__container">
-
-                            <!-- ===== Cartões de estatística ===== -->
-                            <div class="row">
-                                <div class="col-xl-3 col-md-6 mb-4">
-                                    <div class="stat-card">
-                                        <div class="stat-card__icon icon-primary"><i class="material-icons">people</i></div>
-                                        <div>
-                                            <div class="stat-card__value">84.230</div>
-                                            <div class="stat-card__label">Total de Munícipes</div>
-                                            <div class="stat-card__trend text-success"><i class="material-icons" style="font-size:14px;vertical-align:text-bottom;">arrow_upward</i> 2,4% este mês</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-md-6 mb-4">
-                                    <div class="stat-card">
-                                        <div class="stat-card__icon icon-success"><i class="material-icons">directions_car</i></div>
-                                        <div>
-                                            <div class="stat-card__value">3.157</div>
-                                            <div class="stat-card__label">Total de Viaturas</div>
-                                            <div class="stat-card__trend text-success"><i class="material-icons" style="font-size:14px;vertical-align:text-bottom;">arrow_upward</i> 1,1% este mês</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-md-6 mb-4">
-                                    <div class="stat-card">
-                                        <div class="stat-card__icon icon-warning"><i class="material-icons">monetization_on</i></div>
-                                        <div>
-                                            <div class="stat-card__value">MT 4,82M</div>
-                                            <div class="stat-card__label">Receitas do Mês</div>
-                                            <div class="stat-card__trend text-success"><i class="material-icons" style="font-size:14px;vertical-align:text-bottom;">arrow_upward</i> 6,8% vs. mês anterior</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-md-6 mb-4">
-                                    <div class="stat-card">
-                                        <div class="stat-card__icon icon-danger"><i class="material-icons">assignment</i></div>
-                                        <div>
-                                            <div class="stat-card__value">327</div>
-                                            <div class="stat-card__label">Processos Pendentes</div>
-                                            <div class="stat-card__trend text-danger"><i class="material-icons" style="font-size:14px;vertical-align:text-bottom;">arrow_downward</i> 12 novos hoje</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- ===== Gráficos e Relatórios ===== -->
-                            <div class="d-flex align-items-center mb-3">
-                                <span class="section-title">Gráficos e Relatórios</span>
-                                <a href="#" class="btn btn-sm btn-primary ml-auto">Ver relatórios</a>
-                            </div>
-                            <div class="row">
-                                <div class="col-xl-8 mb-4">
-                                    <div class="card h-100">
-                                        <div class="card-header bg-transparent border-0 pt-3">
-                                            <strong>Receitas mensais — 2026</strong>
-                                            <small class="text-muted d-block">Cobrança de tributos (em milhões de MT)</small>
-                                        </div>
-                                        <div class="card-body">
-                                            <canvas id="receitasChart" height="120"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 mb-4">
-                                    <div class="card h-100">
-                                        <div class="card-header bg-transparent border-0 pt-3">
-                                            <strong>Processos por estado</strong>
-                                            <small class="text-muted d-block">Total acumulado</small>
-                                        </div>
-                                        <div class="card-body d-flex align-items-center justify-content-center">
-                                            <canvas id="processosChart" height="220"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
+                        <div>
+                            <p class="stat__value">84.230</p>
+                            <p class="stat__label">Total de Munícipes</p>
+                            <p class="stat__trend stat__trend--up">
+                                <svg fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" /></svg>
+                                2,4% este mês
+                            </p>
                         </div>
-
                     </div>
-                    <!-- // END drawer-layout__content -->
-
-                    <div class="mdk-drawer  js-mdk-drawer"
-                         id="default-drawer"
-                         data-align="start">
-                        <div class="mdk-drawer__content">
-                            <div class="sidebar sidebar-light sidebar-left"
-                                 data-perfect-scrollbar>
-
-                                <!-- Cabeçalho da sidebar -->
-                                <a href="Tela principal.html" class="sidebar-brand-cmm">
-                                    <img src="../assets/images/branding/cmm-logo.png"
-                                         alt="Município de Marracuene"
-                                         class="sidebar-brand-cmm__logo">
-                                    <span class="sidebar-brand-cmm__text">Município de<br>Marracuene</span>
-                                </a>
-
-                                <div class="sidebar-heading">Principal</div>
-                                <ul class="sidebar-menu">
-                                    <li class="sidebar-menu-item active">
-                                        <a class="sidebar-menu-button"
-                                           href="Tela principal.html">
-                                            <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">dashboard</i>
-                                            <span class="sidebar-menu-text">Painel</span>
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button"
-                                           href="#">
-                                            <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">people</i>
-                                            <span class="sidebar-menu-text">Contribuintes</span>
-                                        </a>
-                                    </li>
-                                </ul>
-
-                                <div class="sidebar-heading">Cobrança</div>
-                                <ul class="sidebar-menu">
-                                    <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button"
-                                           data-toggle="collapse"
-                                           href="#tributos_menu">
-                                            <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">account_balance</i>
-                                            <span class="sidebar-menu-text">Tributos &amp; Taxas</span>
-                                            <span class="ml-auto sidebar-menu-toggle-icon"></span>
-                                        </a>
-                                        <ul class="sidebar-submenu collapse"
-                                            id="tributos_menu">
-                                            <li class="sidebar-menu-item">
-                                                <a class="sidebar-menu-button" href="#">
-                                                    <span class="sidebar-menu-text">Imposto Predial (IPRA)</span>
-                                                </a>
-                                            </li>
-                                            <li class="sidebar-menu-item">
-                                                <a class="sidebar-menu-button" href="#">
-                                                    <span class="sidebar-menu-text">Imposto Pessoal (IPA)</span>
-                                                </a>
-                                            </li>
-                                            <li class="sidebar-menu-item">
-                                                <a class="sidebar-menu-button" href="#">
-                                                    <span class="sidebar-menu-text">Atividade Económica</span>
-                                                </a>
-                                            </li>
-                                            <li class="sidebar-menu-item">
-                                                <a class="sidebar-menu-button" href="#">
-                                                    <span class="sidebar-menu-text">Mercados &amp; Feiras</span>
-                                                </a>
-                                            </li>
-                                            <li class="sidebar-menu-item">
-                                                <a class="sidebar-menu-button" href="#">
-                                                    <span class="sidebar-menu-text">Licenças</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button"
-                                           href="#">
-                                            <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">receipt</i>
-                                            <span class="sidebar-menu-text">Guias de Pagamento</span>
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button"
-                                           href="#">
-                                            <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">payment</i>
-                                            <span class="sidebar-menu-text">Pagamentos</span>
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button"
-                                           href="#">
-                                            <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">warning</i>
-                                            <span class="sidebar-menu-text">Dívidas em Atraso</span>
-                                            <span class="badge badge-primary ml-auto">12</span>
-                                        </a>
-                                    </li>
-                                </ul>
-
-                                <div class="sidebar-heading">Cadastro</div>
-                                <ul class="sidebar-menu">
-                                    <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button"
-                                           href="#">
-                                            <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">business</i>
-                                            <span class="sidebar-menu-text">Imóveis</span>
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button"
-                                           href="#">
-                                            <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">store</i>
-                                            <span class="sidebar-menu-text">Estabelecimentos</span>
-                                        </a>
-                                    </li>
-                                </ul>
-
-                                <div class="sidebar-heading">Gestão</div>
-                                <ul class="sidebar-menu">
-                                    <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button"
-                                           href="#">
-                                            <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">assessment</i>
-                                            <span class="sidebar-menu-text">Relatórios</span>
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button"
-                                           href="#">
-                                            <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">supervisor_account</i>
-                                            <span class="sidebar-menu-text">Utilizadores</span>
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button"
-                                           href="#">
-                                            <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">settings</i>
-                                            <span class="sidebar-menu-text">Definições</span>
-                                        </a>
-                                    </li>
-                                </ul>
-
-                                <div class="d-flex align-items-center sidebar-p-a border-bottom sidebar-account">
-                                    <a href="profile.html"
-                                       class="flex d-flex align-items-center text-underline-0 text-body">
-                                        <span class="avatar avatar-sm mr-2">
-                                            <img src="../assets/images/avatar/demi.png"
-                                                 alt="avatar"
-                                                 class="avatar-img rounded-circle">
-                                        </span>
-                                        <span class="flex d-flex flex-column">
-                                            <strong>Conta Municipal</strong>
-                                            <small class="text-muted text-uppercase">Operador de Cobrança</small>
-                                        </span>
-                                    </a>
-                                    <div class="dropdown ml-auto">
-                                        <a href="#"
-                                           data-toggle="dropdown"
-                                           data-caret="false"
-                                           class="text-muted"><i class="material-icons">more_vert</i></a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <div class="dropdown-item-text dropdown-item-text--lh">
-                                                <div><strong>Conta Municipal</strong></div>
-                                                <div>Município de Marracuene</div>
-                                            </div>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item active"
-                                               href="Tela principal.html">Painel</a>
-                                            <a class="dropdown-item"
-                                               href="#">Perfil</a>
-                                            <a class="dropdown-item"
-                                               href="#">Definições</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item"
-                                               href="../auth/login.html">Terminar sessão</a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
+                    <div class="stat">
+                        <div class="stat__icon stat__icon--green">
+                            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 0 0-10.026 0 1.106 1.106 0 0 0-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" /></svg>
+                        </div>
+                        <div>
+                            <p class="stat__value">3.157</p>
+                            <p class="stat__label">Total de Viaturas</p>
+                            <p class="stat__trend stat__trend--up">
+                                <svg fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" /></svg>
+                                1,1% este mês
+                            </p>
+                        </div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat__icon stat__icon--gold">
+                            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
+                        </div>
+                        <div>
+                            <p class="stat__value">MT 4,82M</p>
+                            <p class="stat__label">Receitas do Mês</p>
+                            <p class="stat__trend stat__trend--up">
+                                <svg fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" /></svg>
+                                6,8% vs. mês anterior
+                            </p>
+                        </div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat__icon stat__icon--red">
+                            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" /></svg>
+                        </div>
+                        <div>
+                            <p class="stat__value">327</p>
+                            <p class="stat__label">Processos Pendentes</p>
+                            <p class="stat__trend stat__trend--down">
+                                <svg fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 4.5l15 15m0 0V8.25m0 11.25H8.25" /></svg>
+                                12 novos hoje
+                            </p>
                         </div>
                     </div>
                 </div>
-                <!-- // END drawer-layout -->
 
-            </div>
-            <!-- // END header-layout__content -->
+                <!-- Secção: Gráficos e Relatórios -->
+                <div class="section-head">
+                    <span class="section-head__title">Gráficos e Relatórios</span>
+                    <a href="#" class="section-head__action btn-brand">Ver relatórios</a>
+                </div>
 
+                <div class="charts-grid">
+                    <div class="card card--wide">
+                        <h2 class="card__title">Receitas mensais — 2026</h2>
+                        <p class="card__subtitle">Cobrança de tributos (em milhões de MT)</p>
+                        <div class="card__chart"><canvas id="receitasChart"></canvas></div>
+                    </div>
+                    <div class="card">
+                        <h2 class="card__title">Processos por estado</h2>
+                        <p class="card__subtitle">Total acumulado</p>
+                        <div class="card__chart"><canvas id="processosChart"></canvas></div>
+                    </div>
+                </div>
+            </main>
         </div>
-        <!-- // END header-layout -->
+    </div>
 
-        <!-- jQuery -->
-        <script src="../assets/js/vendor/jquery.min.js"></script>
+    <!-- Chart.js -->
+    <script src="../assets/js/vendor/Chart.min.js"></script>
 
-        <!-- Bootstrap -->
-        <script src="../assets/js/vendor/popper.min.js"></script>
-        <script src="../assets/js/vendor/bootstrap.min.js"></script>
+    <!-- Lógica de interface (vanilla) -->
+    <script>
+        (function () {
+            // Sidebar recolhível (persistente)
+            var sidebar = document.getElementById('sidebar');
+            var toggle = document.getElementById('sidebarToggle');
+            var KEY = 'cmm.sidebar.collapsed';
+            if (localStorage.getItem(KEY) === '1') sidebar.classList.add('is-collapsed');
+            toggle.addEventListener('click', function () {
+                var collapsed = sidebar.classList.toggle('is-collapsed');
+                localStorage.setItem(KEY, collapsed ? '1' : '0');
+            });
 
-        <!-- Perfect Scrollbar -->
-        <script src="../assets/js/vendor/perfect-scrollbar.min.js"></script>
+            // Submenus expansíveis
+            document.querySelectorAll('[data-submenu-toggle]').forEach(function (btn) {
+                btn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    if (sidebar.classList.contains('is-collapsed')) return;
+                    btn.closest('.nav-item').classList.toggle('is-open');
+                });
+            });
+        })();
 
-        <!-- DOM Factory -->
-        <script src="../assets/js/vendor/dom-factory.js"></script>
+        // Gráficos do Painel
+        (function () {
+            if (typeof Chart === 'undefined') return;
+            var PRIMARY = '#1F9E74', PRIMARY_LIGHT = '#5FC2A0',
+                SUCCESS = '#16A34A', WARNING = '#E0A526';
 
-        <!-- MDK -->
-        <script src="../assets/js/vendor/material-design-kit.js"></script>
-
-        <!-- App -->
-        <script src="../assets/js/app/toggle-check-all.js"></script>
-        <script src="../assets/js/app/check-selected-row.js"></script>
-        <script src="../assets/js/app/dropdown.js"></script>
-        <script src="../assets/js/app/sidebar-mini.js"></script>
-        <script src="../assets/js/app/app.js"></script>
-
-        <!-- Flatpickr -->
-        <script src="../assets/js/vendor/flatpickr/flatpickr.min.js"></script>
-        <script src="../assets/js/app/flatpickr.js"></script>
-
-        <!-- Global Settings -->
-        <script src="../assets/js/app/settings.js"></script>
-
-        <!-- Moment.js -->
-        <script src="../assets/js/vendor/moment.min.js"></script>
-        <script src="../assets/js/vendor/moment-range.js"></script>
-
-        <!-- Chart.js -->
-        <script src="../assets/js/vendor/Chart.min.js"></script>
-
-        <!-- Gráficos do Painel (Município de Marracuene) -->
-        <script>
-            (function () {
-                if (typeof Chart === 'undefined') return;
-                var PRIMARY = '#1B6EC2', PRIMARY_LIGHT = '#5FA0E0',
-                    SUCCESS = '#1F9E74', WARNING = '#E0A526';
-
-                var elReceitas = document.getElementById('receitasChart');
-                if (elReceitas) {
-                    new Chart(elReceitas.getContext('2d'), {
-                        type: 'bar',
-                        data: {
-                            labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-                            datasets: [{
-                                label: 'Receitas (milhões MT)',
-                                data: [3.1, 3.6, 4.0, 3.8, 4.4, 4.82, 0, 0, 0, 0, 0, 0],
-                                backgroundColor: PRIMARY,
-                                hoverBackgroundColor: PRIMARY_LIGHT,
-                                borderRadius: 6,
-                                maxBarThickness: 34
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            legend: { display: false },
-                            scales: {
-                                yAxes: [{ ticks: { beginAtZero: true }, gridLines: { color: '#EDF1F7' } }],
-                                xAxes: [{ gridLines: { display: false } }]
-                            }
+            var elReceitas = document.getElementById('receitasChart');
+            if (elReceitas) {
+                new Chart(elReceitas.getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                        datasets: [{
+                            label: 'Receitas (milhões MT)',
+                            data: [3.1, 3.6, 4.0, 3.8, 4.4, 4.82, 0, 0, 0, 0, 0, 0],
+                            backgroundColor: PRIMARY,
+                            hoverBackgroundColor: PRIMARY_LIGHT,
+                            borderRadius: 6,
+                            maxBarThickness: 34
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        legend: { display: false },
+                        scales: {
+                            yAxes: [{ ticks: { beginAtZero: true }, gridLines: { color: '#EDF1F7' } }],
+                            xAxes: [{ gridLines: { display: false } }]
                         }
-                    });
-                }
+                    }
+                });
+            }
 
-                var elProcessos = document.getElementById('processosChart');
-                if (elProcessos) {
-                    new Chart(elProcessos.getContext('2d'), {
-                        type: 'doughnut',
-                        data: {
-                            labels: ['Concluídos', 'Em curso', 'Pendentes'],
-                            datasets: [{
-                                data: [1240, 410, 327],
-                                backgroundColor: [SUCCESS, PRIMARY, WARNING],
-                                borderWidth: 0
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            cutoutPercentage: 68,
-                            legend: { position: 'bottom' }
-                        }
-                    });
-                }
-            })();
-        </script>
-
-    </body>
-
-
-<!-- Mirrored from demo.frontted.com/flowdash/120/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 19 Jun 2026 17:27:26 GMT -->
+            var elProcessos = document.getElementById('processosChart');
+            if (elProcessos) {
+                new Chart(elProcessos.getContext('2d'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Concluídos', 'Em curso', 'Pendentes'],
+                        datasets: [{
+                            data: [1240, 410, 327],
+                            backgroundColor: [SUCCESS, PRIMARY, WARNING],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutoutPercentage: 68,
+                        legend: { position: 'bottom' }
+                    }
+                });
+            }
+        })();
+    </script>
+</body>
 </html>
