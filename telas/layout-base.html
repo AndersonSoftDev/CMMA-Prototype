@@ -32,11 +32,25 @@
         .nav-scroll::-webkit-scrollbar-track { background: transparent; }
 
         /* ---------- Faixa superior da marca (topbar + cabeçalho da sidebar) ---------- */
-        /* Gradiente subtil + separador inferior coeso para leitura como uma só faixa. */
+        /* Gradiente do verde do escudo + costura dourada (o sol do brasão) a unir
+           topbar e cabeçalho da sidebar como uma só faixa institucional. */
         .brand-bar {
-            background-image: linear-gradient(180deg, #239f78 0%, #18815F 100%);
-            box-shadow: inset 0 -1px 0 rgba(0,0,0,.12), 0 1px 2px rgba(15,23,42,.06);
+            background-image: linear-gradient(180deg, #239f78 0%, #136B4F 100%);
+            box-shadow: inset 0 -2px 0 #FBBF24, 0 1px 2px rgba(15,23,42,.08);
         }
+
+        /* Chip que protege o brasão (clear space) sobre o verde — o emblema lê-se nítido. */
+        .brand-chip {
+            display: flex; align-items: center; justify-content: center;
+            height: 2.5rem; width: 2.5rem; flex-shrink: 0;
+            border-radius: .75rem; background: #fff;
+            box-shadow: 0 1px 2px rgba(15,23,42,.18);
+            box-shadow: 0 1px 2px rgba(15,23,42,.18), inset 0 0 0 1px rgba(0,0,0,.04);
+        }
+
+        /* ---------- Presença da navegação ---------- */
+        /* Ícones um pouco mais firmes (vs. cinza-claro apagado). */
+        #sidebar .nav-link svg { color: #64748B; } /* slate-500 */
 
         /* ---------- Estado activo da navegação ---------- */
         .nav-link { position: relative; }
@@ -44,15 +58,21 @@
             background: #E9F6F1;                 /* brand-50 */
             color: #136B4F;                      /* brand-700 */
             font-weight: 600;
+            box-shadow: 0 1px 2px rgba(19,107,79,.12); /* leve relevo */
         }
-        .nav-link[aria-current="page"] svg { color: #18815F; } /* brand-600 */
+        #sidebar .nav-link[aria-current="page"] svg { color: #18815F; } /* brand-600 */
+        /* Acento lateral: verde do escudo rematado pelo dourado do sol. */
         .nav-link[aria-current="page"]::before {
             content: ''; position: absolute; left: -.75rem; top: 50%;
             transform: translateY(-50%);
             height: 1.5rem; width: 3px; border-radius: 0 3px 3px 0;
-            background: #18815F;                 /* brand-600 */
+            background: linear-gradient(180deg, #1F9E74 0%, #136B4F 100%);
         }
         #sidebar.is-collapsed .nav-link[aria-current="page"]::before { left: -.5rem; }
+
+        /* Hover com tinta da marca: a navegação "responde" em verde, não em cinza. */
+        #sidebar .nav-link:not([aria-current="page"]):hover { background: #E9F6F1; color: #136B4F; }
+        #sidebar .nav-link:not([aria-current="page"]):hover svg { color: #18815F; }
 
         /* ---------- Sidebar recolhível ---------- */
         #sidebar { transition: width .2s ease; }
@@ -81,19 +101,21 @@
     <div class="flex h-full overflow-hidden">
 
         <!-- ============================= SIDEBAR ============================= -->
-        <aside id="sidebar" class="flex w-64 shrink-0 flex-col border-r border-slate-200 bg-white">
+        <aside id="sidebar" class="relative z-10 flex w-64 shrink-0 flex-col bg-white shadow-[6px_0_28px_-14px_rgba(15,23,42,0.22)]">
 
             <!-- Bloco nobre da marca (h-16, alinhado à topbar) -->
-            <a href="#" class="brand-block brand-bar flex h-16 shrink-0 items-center gap-3 px-5 transition hover:brightness-105">
-                <img src="../assets/images/branding/cmm-logo.png" alt="Brasão de Marracuene" class="h-9 w-auto shrink-0">
+            <a href="#" class="brand-block brand-bar flex h-16 shrink-0 items-center gap-3 px-4 transition hover:brightness-105">
+                <span class="brand-chip">
+                    <img src="../assets/images/branding/cmm-logo.png" alt="Brasão de Marracuene" class="h-8 w-auto">
+                </span>
                 <span class="sb-hide flex flex-col leading-none">
-                    <span class="text-[11px] font-medium uppercase tracking-wide text-white/70">Município de</span>
+                    <span class="text-[11px] font-medium uppercase tracking-wide text-white/75">Município de</span>
                     <span class="text-lg font-black leading-tight text-white">Marracuene</span>
                 </span>
             </a>
 
             <!-- Navegação -->
-            <nav class="nav-scroll flex-1 space-y-7 overflow-y-auto px-3 py-5">
+            <nav class="nav-scroll flex-1 space-y-7 overflow-y-auto border-r border-slate-200 px-3 py-5">
 
                 <!-- PRINCIPAL -->
                 <div>
@@ -169,15 +191,17 @@
                 </div>
             </nav>
 
-            <!-- Rodapé: conta -->
-            <div class="border-t border-slate-200 p-2">
-                <button class="account-block flex w-full items-center gap-3 rounded-lg px-2 py-2 text-left transition hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400">
+            <!-- Rodapé: conta (card) -->
+            <div class="border-r border-t border-slate-200 p-3">
+                <button class="account-block group flex w-full items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-2.5 py-2 text-left transition hover:border-slate-300 hover:bg-white hover:shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400">
                     <img src="../assets/images/avatar/demi.png" alt="" class="h-9 w-9 shrink-0 rounded-full object-cover ring-2 ring-brand-100">
                     <span class="sb-hide min-w-0 flex-1 leading-tight">
                         <span class="block truncate text-sm font-semibold text-slate-800">Conta Municipal</span>
-                        <span class="block truncate text-xs text-slate-400">Operador de Cobrança</span>
+                        <span class="block truncate text-xs text-slate-500">Operador de Cobrança</span>
                     </span>
-                    <svg class="sb-hide h-5 w-5 shrink-0 text-slate-400" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" /></svg>
+                    <span class="sb-hide flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-slate-400 transition group-hover:bg-slate-100 group-hover:text-slate-600">
+                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" /></svg>
+                    </span>
                 </button>
             </div>
         </aside>
@@ -220,11 +244,23 @@
 
             <!-- ============================= CONTEÚDO ============================= -->
             <main class="flex-1 overflow-y-auto p-6 lg:p-8">
-                <nav class="mb-1 flex items-center gap-2 text-sm text-slate-400">
-                    <a href="#" class="hover:text-slate-600">Início</a><span>/</span>
-                    <span class="font-medium text-slate-600">Painel</span>
-                </nav>
-                <h1 class="mb-6 text-2xl font-bold text-slate-800">Painel</h1>
+                <!-- ===== Hero institucional: boas-vindas ===== -->
+                <section class="relative mb-6 overflow-hidden rounded-2xl bg-gradient-to-br from-brand-700 via-brand-600 to-brand-500 px-6 py-6 text-white shadow-sm sm:px-8">
+                    <!-- Brasão como selo de canto (sangrado, subtil) -->
+                    <img src="../assets/images/branding/cmm-logo.png" alt="" aria-hidden="true"
+                         class="pointer-events-none absolute -bottom-20 -right-10 h-72 w-auto rotate-6 select-none opacity-[0.06]">
+
+                    <div class="relative max-w-2xl">
+                        <span class="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-xs font-medium text-white ring-1 ring-white/20 backdrop-blur-sm">
+                            <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8 2v4M16 2v4M3 10h18" /><rect width="18" height="18" x="3" y="4" rx="2" /></svg>
+                            Sábado, 20 de Junho de 2026
+                        </span>
+                        <h1 class="mt-4 text-2xl font-bold leading-snug sm:text-[1.7rem]">Bem-vindo de volta, Adrian.</h1>
+                        <p class="mt-2 max-w-xl text-sm leading-relaxed text-white/85">
+                            Eis o panorama da cobrança de tributos do Município de Marracuene. Consulte os indicadores, acompanhe os processos e mantenha a arrecadação em dia.
+                        </p>
+                    </div>
+                </section>
 
                 <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
                     <div class="flex items-center gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:shadow-md">
