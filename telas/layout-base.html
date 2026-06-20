@@ -31,51 +31,74 @@
         .nav-scroll::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 3px; }
         .nav-scroll::-webkit-scrollbar-track { background: transparent; }
 
-        /* ---------- Faixa superior da marca (topbar + cabeçalho da sidebar) ---------- */
-        /* Gradiente do verde do escudo + costura dourada (o sol do brasão) a unir
-           topbar e cabeçalho da sidebar como uma só faixa institucional. */
-        .brand-bar {
-            background-color: #127c54;            /* verde institucional rico */
+        /* ---------- Topbar verde institucional (largura total) ---------- */
+        .topbar-brand {
+            background-color: #127c54;
             background-image: linear-gradient(180deg, #16936a 0%, #127c54 100%);
             box-shadow: inset 0 -2px 0 #FBBF24, 0 1px 2px rgba(15,23,42,.08);
         }
 
-        /* Chip que protege o brasão (clear space) sobre o verde — o emblema lê-se nítido. */
+        /* Chip que protege o brasão (clear space) sobre o verde. */
         .brand-chip {
             display: flex; align-items: center; justify-content: center;
             height: 2.5rem; width: 2.5rem; flex-shrink: 0;
             border-radius: .75rem; background: #fff;
-            box-shadow: 0 1px 2px rgba(15,23,42,.18);
             box-shadow: 0 1px 2px rgba(15,23,42,.18), inset 0 0 0 1px rgba(0,0,0,.04);
         }
 
-        /* ---------- Presença da navegação ---------- */
-        /* Ícones um pouco mais firmes (vs. cinza-claro apagado). */
-        #sidebar .nav-link svg { color: #64748B; } /* slate-500 */
-        /* Marcador de selecção: borda esquerda. Transparente nos inactivos para
-           manter o alinhamento dos rótulos (sem saltos entre estados). */
-        #sidebar .nav-link { border-left: 4px solid transparent; padding-left: .5rem; }
+        /* ---------- Navegação: ícones maiores e neutros (verde só no activo) ---------- */
+        #sidebar .nav-link { position: relative; }
+        #sidebar .nav-link > svg:first-child { height: 1.5rem; width: 1.5rem; } /* ícones maiores (24px) */
+        #sidebar .nav-link svg { color: #64748B; }                              /* slate-500 */
 
-        /* ---------- Estado activo da navegação ---------- */
-        .nav-link { position: relative; }
+        /* ---------- Estado activo: realce verde simples ---------- */
         .nav-link[aria-current="page"] {
-            background: #E9F6F1;                 /* verde translúcido suave (brand-50) */
-            color: #136B4F;                      /* verde oficial (brand-700) */
+            background: #D0EDE3;                 /* verde mais forte (brand-100) */
+            color: #0F5B43;                      /* verde escuro p/ bom contraste */
             font-weight: 600;
         }
-        #sidebar .nav-link[aria-current="page"] { border-left-color: #F59E0B; } /* borda esquerda sólida — sol (gold-500) */
-        #sidebar .nav-link[aria-current="page"] svg { color: #D97706; }         /* sol (gold-600) */
+        #sidebar .nav-link[aria-current="page"] svg { color: #136B4F; }         /* ícone verde escuro (brand-700) */
+        /* Trilho: barra sólida discreta à esquerda. */
+        #sidebar .nav-link[aria-current="page"]::before {
+            content: ""; position: absolute; left: 5px; top: 50%; transform: translateY(-50%);
+            height: 1.25rem; width: 3px; border-radius: 9999px;
+            background: #18815F;
+        }
 
-        /* Hover discreto dos inactivos: slate-50 + texto mais escuro. */
+        /* Hover discreto dos inactivos. */
         #sidebar .nav-link:not([aria-current="page"]):hover { background: #F8FAFC; color: #0F172A; }
-        #sidebar .nav-link:not([aria-current="page"]):hover svg { color: #475569; }
+        #sidebar .nav-link:not([aria-current="page"]):hover svg { color: #334155; } /* slate-700 */
 
-        /* ---------- Sidebar recolhível ---------- */
+        /* ---------- Submenus recolhíveis ---------- */
+        .nav-caret { margin-left: auto; height: 1.1rem; width: 1.1rem; transition: transform .2s ease; }
+        .nav-item.is-open > .nav-link .nav-caret { transform: rotate(90deg); }
+        .submenu { list-style: none; margin: .25rem 0 0; padding: 0; max-height: 0; overflow: hidden; transition: max-height .24s ease; }
+        .nav-item.is-open > .submenu { max-height: 22rem; }
+        .submenu a {
+            display: block; border-radius: .5rem; padding: .4rem .75rem .4rem 3.4rem;
+            font-size: .8125rem; color: #64748B; transition: background-color .15s, color .15s;
+        }
+        .submenu a:hover { background: #F8FAFC; color: #0F172A; }
+        #sidebar.is-collapsed .submenu { display: none; }
+
+        /* ---------- Profundidade dos cards (sombra suave em camadas + hover) ---------- */
+        .depth-card {
+            border-radius: 1rem;                 /* 16px */
+            background-image: linear-gradient(180deg, #FFFFFF 0%, #FBFCFE 100%); /* leve gradiente p/ volume */
+            border: 1px solid rgba(15,23,42,.05);
+            box-shadow: 0 1px 2px rgba(15,23,42,.04), 0 12px 28px -14px rgba(15,23,42,.22);
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+        .depth-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 2px 4px rgba(15,23,42,.05), 0 22px 44px -16px rgba(15,23,42,.30);
+        }
+
+        /* ---------- Sidebar flutuante recolhível ---------- */
         #sidebar { transition: width .2s ease; }
         #sidebar.is-collapsed { width: 5rem; }                       /* rail = 80px */
         #sidebar.is-collapsed .sb-hide { display: none !important; } /* esconde rótulos/badges */
         #sidebar.is-collapsed .nav-link { justify-content: center; }
-        #sidebar.is-collapsed .brand-block,
         #sidebar.is-collapsed .account-block { justify-content: center; padding-left: 0; padding-right: 0; }
 
         /* Tooltip (só visível quando recolhida) */
@@ -96,242 +119,251 @@
     </style>
 </head>
 
-<body class="h-full bg-slate-50 font-sans text-slate-700 antialiased">
+<body class="h-full bg-[#E9EDF3] font-sans text-slate-700 antialiased">
 
-    <!-- LAYOUT RAIZ: [ SIDEBAR full-height ] [ COLUNA: Topbar + Conteúdo ] -->
+    <!-- LAYOUT RAIZ (coluna): [ TOPBAR largura total ] [ CORPO: sidebar flutuante + conteúdo ] -->
     <div class="flex h-full flex-col overflow-hidden">
 
-            <!-- ============================= TOPBAR (largura total) ============================= -->
-            <header class="brand-bar relative z-20 flex h-16 shrink-0 items-center gap-4 px-6">
-                <!-- Marca institucional -->
-                <a href="#" class="flex shrink-0 items-center gap-2.5 transition hover:brightness-105">
-                    <span class="brand-chip">
-                        <img src="../assets/images/branding/cmm-logo.png" alt="Brasão de Marracuene" class="h-8 w-auto">
-                    </span>
-                    <span class="hidden flex-col leading-none sm:flex">
-                        <span class="text-[11px] font-medium uppercase tracking-wide text-white/75">Município de</span>
-                        <span class="text-base font-black leading-tight text-white">Marracuene</span>
-                    </span>
-                </a>
-                <span class="mx-1 hidden h-6 w-px bg-white/25 lg:block"></span>
+        <!-- ============================= TOPBAR (verde institucional, largura total) ============================= -->
+        <header class="topbar-brand relative z-20 flex h-16 shrink-0 items-center gap-4 px-6">
+            <!-- Marca institucional -->
+            <a href="#" class="flex shrink-0 items-center gap-2.5 transition hover:brightness-105">
+                <span class="brand-chip">
+                    <img src="../assets/images/branding/cmm-logo.png" alt="Brasão de Marracuene" class="h-8 w-auto">
+                </span>
+                <span class="hidden flex-col leading-none sm:flex">
+                    <span class="text-[11px] font-medium uppercase tracking-wide text-white/75">Município de</span>
+                    <span class="text-base font-black leading-tight text-white">Marracuene</span>
+                </span>
+            </a>
+            <span class="mx-1 hidden h-6 w-px bg-white/25 lg:block"></span>
 
-                <!-- Lema do município -->
-                <p class="hidden flex-1 text-center text-sm font-medium italic text-white/90 [text-shadow:0_1px_2px_rgb(0_0_0_/_25%)] md:block">Marracuene em primeiro com a bênção de Deus</p>
-                <!-- Ações à direita -->
-                <div class="ml-auto flex items-center gap-1">
-                    <button aria-label="Notificações" class="relative flex h-10 w-10 items-center justify-center rounded-lg text-white/90 transition hover:bg-white/15 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" /></svg>
-                        <span class="absolute right-2 top-2 h-2.5 w-2.5 rounded-full bg-gold-400 ring-2 ring-brand-600"></span>
-                    </button>
-                    <span class="mx-1 h-6 w-px bg-white/25"></span>
-                    <button class="flex items-center gap-2 rounded-lg py-1 pl-1 pr-2 transition hover:bg-white/15 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40">
-                        <span aria-hidden="true" class="flex h-9 w-9 items-center justify-center rounded-full bg-white/20 text-sm font-semibold text-white ring-2 ring-white/30">JD</span>
-                        <span class="hidden text-sm font-medium text-white sm:block">John Doe</span>
-                        <svg class="hidden h-4 w-4 text-white/70 sm:block" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
-                    </button>
-                </div>
-            </header>
+            <!-- Lema do município -->
+            <p class="hidden flex-1 text-center text-sm font-medium italic text-white/90 [text-shadow:0_1px_2px_rgb(0_0_0_/_25%)] md:block">Marracuene em primeiro com a bênção de Deus</p>
 
-            <!-- ===== Linha: sidebar flutuante + conteúdo ===== -->
-            <div class="flex min-h-0 flex-1 gap-4 overflow-hidden p-4">
-
-        <!-- ============================= SIDEBAR ============================= -->
-        <aside id="sidebar" class="relative z-10 flex w-72 shrink-0 flex-col rounded-2xl bg-white shadow-[0_10px_30px_-12px_rgba(15,23,42,0.28)]">
-
-            <!-- Conta no topo -->
-            <div class="border-b border-slate-200 p-3">
-                <button class="account-block group flex w-full items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 p-3 text-left transition hover:border-slate-300 hover:bg-white hover:shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400">
-                    <span aria-hidden="true" class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-600 text-sm font-semibold text-white ring-2 ring-brand-100">JD</span>
-                    <span class="sb-hide min-w-0 flex-1 leading-tight">
-                        <span class="block truncate text-sm font-semibold text-slate-800">John Doe</span>
-                        <span class="block truncate text-xs text-slate-500">Cadastrador</span>
-                    </span>
-                    <span class="sb-hide flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-slate-400 transition group-hover:bg-slate-100 group-hover:text-slate-600">
-                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" /></svg>
-                    </span>
+            <!-- Ações à direita -->
+            <div class="ml-auto flex items-center gap-1">
+                <button aria-label="Notificações" class="relative flex h-10 w-10 items-center justify-center rounded-lg text-white/90 transition hover:bg-white/15 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" /></svg>
+                    <span class="absolute right-2 top-2 h-2.5 w-2.5 rounded-full bg-gold-400 ring-2 ring-brand-600"></span>
+                </button>
+                <span class="mx-1 h-6 w-px bg-white/25"></span>
+                <button class="flex items-center gap-2 rounded-lg py-1 pl-1 pr-2 transition hover:bg-white/15 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40">
+                    <span aria-hidden="true" class="flex h-9 w-9 items-center justify-center rounded-full bg-white/20 text-sm font-semibold text-white ring-2 ring-white/30">JD</span>
+                    <span class="hidden text-sm font-medium text-white sm:block">John Doe</span>
+                    <svg class="hidden h-4 w-4 text-white/70 sm:block" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
                 </button>
             </div>
+        </header>
 
-            <!-- Navegação -->
-            <nav class="nav-scroll flex-1 space-y-7 overflow-y-auto px-3 py-5">
+        <!-- ===================== CORPO: sidebar flutuante + conteúdo ===================== -->
+        <div class="flex min-h-0 flex-1 gap-4 overflow-hidden p-4">
 
-                <!-- PRINCIPAL -->
-                <div>
-                    <p class="sb-hide mb-2 flex items-center gap-2 px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-400"><span class="h-1.5 w-1.5 rounded-full bg-gold-400"></span>Principal</p>
-                    <ul class="space-y-1">
-                        <li>
-                            <a href="#" data-tip="Painel" aria-current="page" class="nav-link flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 transition">
-                                <svg class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6Zm0 9.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25Zm9.75-9.75A2.25 2.25 0 0 1 15.75 3.75H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6Zm0 9.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" /></svg>
-                                <span class="sb-hide">Painel</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" data-tip="Contribuintes" class="nav-link flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900">
-                                <svg class="h-5 w-5 shrink-0 text-slate-400" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" /></svg>
-                                <span class="sb-hide">Contribuintes</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+            <!-- ============================= SIDEBAR (cartão flutuante) ============================= -->
+            <aside id="sidebar" class="relative z-10 flex w-72 shrink-0 flex-col rounded-2xl border border-slate-200 bg-white shadow-sm">
 
-                <!-- COBRANÇA -->
-                <div>
-                    <p class="sb-hide mb-2 flex items-center gap-2 px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-400"><span class="h-1.5 w-1.5 rounded-full bg-gold-400"></span>Cobrança</p>
-                    <ul class="space-y-1">
-                        <li>
-                            <a href="#" data-tip="Tributos & Taxas" class="nav-link group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900">
-                                <svg class="h-5 w-5 shrink-0 text-slate-400" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0 0 12 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75Z" /></svg>
-                                <span class="sb-hide">Tributos &amp; Taxas</span>
-                                <span class="sb-hide ml-auto flex h-5 w-5 items-center justify-center rounded-md text-slate-400 transition group-hover:bg-white group-hover:text-brand-600">
-                                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" data-tip="Guias de Pagamento" class="nav-link flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900">
-                                <svg class="h-5 w-5 shrink-0 text-slate-400" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" /></svg>
-                                <span class="sb-hide">Guias de Pagamento</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" data-tip="Pagamentos" class="nav-link flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900">
-                                <svg class="h-5 w-5 shrink-0 text-slate-400" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" /></svg>
-                                <span class="sb-hide">Pagamentos</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" data-tip="Dívidas em Atraso" class="nav-link flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900">
-                                <svg class="h-5 w-5 shrink-0 text-slate-400" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" /></svg>
-                                <span class="sb-hide">Dívidas em Atraso</span>
-                                <span class="sb-hide ml-auto inline-flex h-5 min-w-[20px] items-center justify-center rounded-full bg-gold-400 px-1.5 text-xs font-bold text-slate-900">12</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- CADASTRO -->
-                <div>
-                    <p class="sb-hide mb-2 flex items-center gap-2 px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-400"><span class="h-1.5 w-1.5 rounded-full bg-gold-400"></span>Cadastro</p>
-                    <ul class="space-y-1">
-                        <li>
-                            <a href="#" data-tip="Imóveis" class="nav-link flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900">
-                                <svg class="h-5 w-5 shrink-0 text-slate-400" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21a.75.75 0 0 1 .75.75V21" /></svg>
-                                <span class="sb-hide">Imóveis</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" data-tip="Estabelecimentos" class="nav-link flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900">
-                                <svg class="h-5 w-5 shrink-0 text-slate-400" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 .75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349M3.75 21V9.349m0 0a3.001 3.001 0 0 0 3.75-.615A2.993 2.993 0 0 0 9.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 0 0 2.25 1.016 2.99 2.99 0 0 0 2.25-1.015 3.001 3.001 0 0 0 3.75.614m-16.5 0a3.004 3.004 0 0 1-.621-4.72L4.318 3.44A1.5 1.5 0 0 1 5.378 3h13.243a1.5 1.5 0 0 1 1.06.44l1.19 1.189a3 3 0 0 1-.621 4.72m-13.5 8.65h3.75a.75.75 0 0 0 .75-.75V13.5a.75.75 0 0 0-.75-.75H6.75a.75.75 0 0 0-.75.75v3.75c0 .415.336.75.75.75Z" /></svg>
-                                <span class="sb-hide">Estabelecimentos</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-
-            <!-- Recolher / expandir sidebar -->
-            <div class="border-t border-slate-200 p-3">
-                <button id="sidebarToggle" aria-label="Recolher menu"
-                        class="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-slate-500 transition hover:bg-slate-100 hover:text-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400">
-                    <svg class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m11 17-5-5 5-5M18 17l-5-5 5-5" /></svg>
-                    <span class="sb-hide">Recolher</span>
-                </button>
-            </div>
-        </aside>
-
-                <!-- ============================= CONTEÚDO ============================= -->
-                <main class="min-w-0 flex-1 overflow-y-auto">
-                <!-- ===== Hero institucional: boas-vindas ===== -->
-                <section class="relative mb-6 overflow-hidden rounded-2xl bg-gradient-to-br from-brand-700 via-brand-600 to-brand-500 px-6 py-6 text-white shadow-sm sm:px-8">
-                    <!-- Brasão como selo de canto (sangrado, subtil) -->
-                    <img src="../assets/images/branding/cmm-logo.png" alt="" aria-hidden="true"
-                         class="pointer-events-none absolute -bottom-20 -right-10 h-72 w-auto rotate-6 select-none opacity-[0.06]">
-
-                    <div class="relative max-w-2xl">
-                        <span class="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-xs font-medium text-white ring-1 ring-white/20 backdrop-blur-sm">
-                            <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8 2v4M16 2v4M3 10h18" /><rect width="18" height="18" x="3" y="4" rx="2" /></svg>
-                            Sábado, 20 de Junho de 2026
+                <!-- Conta no topo -->
+                <div class="border-b border-slate-200 p-3">
+                    <button class="account-block group flex w-full items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 p-3 text-left transition hover:border-slate-300 hover:bg-white hover:shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400">
+                        <span aria-hidden="true" class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-600 text-sm font-semibold text-white">JD</span>
+                        <span class="sb-hide min-w-0 flex-1 leading-tight">
+                            <span class="block truncate text-sm font-semibold text-slate-800">John Doe</span>
+                            <span class="block truncate text-xs text-slate-500">Cadastrador</span>
                         </span>
-                        <h1 class="mt-4 text-2xl font-bold leading-snug sm:text-[1.7rem]">Bem-vindo de volta, Adrian.</h1>
-                        <p class="mt-2 max-w-xl text-sm leading-relaxed text-white/85">
-                            Eis o panorama da cobrança de tributos do Município de Marracuene. Consulte os indicadores, acompanhe os processos e mantenha a arrecadação em dia.
-                        </p>
+                        <span class="sb-hide flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-slate-400 transition group-hover:bg-slate-100 group-hover:text-slate-600">
+                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" /></svg>
+                        </span>
+                    </button>
+                </div>
+
+                <!-- Navegação -->
+                <nav class="nav-scroll flex-1 space-y-7 overflow-y-auto px-3 py-5">
+
+                    <!-- PRINCIPAL -->
+                    <div>
+                        <p class="sb-hide mb-2 px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-400">Principal</p>
+                        <ul class="space-y-1">
+                            <li>
+                                <a href="#" data-tip="Painel" aria-current="page" class="nav-link flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 transition">
+                                    <svg class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6Zm0 9.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25Zm9.75-9.75A2.25 2.25 0 0 1 15.75 3.75H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6Zm0 9.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" /></svg>
+                                    <span class="sb-hide">Painel</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" data-tip="Contribuintes" class="nav-link flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900">
+                                    <svg class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" /></svg>
+                                    <span class="sb-hide">Contribuintes</span>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
-                </section>
+
+                    <!-- COBRANÇA -->
+                    <div>
+                        <p class="sb-hide mb-2 px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-400">Cobrança</p>
+                        <ul class="space-y-1">
+                            <li class="nav-item">
+                                <a href="#" data-tip="Tributos & Taxas" data-submenu-toggle class="nav-link flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900">
+                                    <svg class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0 0 12 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75Z" /></svg>
+                                    <span class="sb-hide">Tributos &amp; Taxas</span>
+                                    <svg class="sb-hide nav-caret" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
+                                </a>
+                                <ul class="sb-hide submenu">
+                                    <li><a href="#">Imposto Predial (IPRA)</a></li>
+                                    <li><a href="#">Imposto Pessoal (IPA)</a></li>
+                                    <li><a href="#">Atividade Económica</a></li>
+                                    <li><a href="#">Mercados &amp; Feiras</a></li>
+                                    <li><a href="#">Licenças</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" data-tip="Guias de Pagamento" class="nav-link flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900">
+                                    <svg class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" /></svg>
+                                    <span class="sb-hide">Guias de Pagamento</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" data-tip="Pagamentos" class="nav-link flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900">
+                                    <svg class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" /></svg>
+                                    <span class="sb-hide">Pagamentos</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" data-tip="Dívidas em Atraso" class="nav-link flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900">
+                                    <svg class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" /></svg>
+                                    <span class="sb-hide">Dívidas em Atraso</span>
+                                    <span class="sb-hide ml-auto inline-flex h-5 min-w-[20px] items-center justify-center rounded-full bg-slate-100 px-1.5 text-xs font-semibold text-slate-600">12</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- CADASTRO -->
+                    <div>
+                        <p class="sb-hide mb-2 px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-400">Cadastro</p>
+                        <ul class="space-y-1">
+                            <li>
+                                <a href="#" data-tip="Imóveis" class="nav-link flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900">
+                                    <svg class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21a.75.75 0 0 1 .75.75V21" /></svg>
+                                    <span class="sb-hide">Imóveis</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" data-tip="Estabelecimentos" class="nav-link flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900">
+                                    <svg class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 .75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349M3.75 21V9.349m0 0a3.001 3.001 0 0 0 3.75-.615A2.993 2.993 0 0 0 9.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 0 0 2.25 1.016 2.99 2.99 0 0 0 2.25-1.015 3.001 3.001 0 0 0 3.75.614m-16.5 0a3.004 3.004 0 0 1-.621-4.72L4.318 3.44A1.5 1.5 0 0 1 5.378 3h13.243a1.5 1.5 0 0 1 1.06.44l1.19 1.189a3 3 0 0 1-.621 4.72m-13.5 8.65h3.75a.75.75 0 0 0 .75-.75V13.5a.75.75 0 0 0-.75-.75H6.75a.75.75 0 0 0-.75.75v3.75c0 .415.336.75.75.75Z" /></svg>
+                                    <span class="sb-hide">Estabelecimentos</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+                <!-- Recolher / expandir sidebar -->
+                <div class="border-t border-slate-200 p-3">
+                    <button id="sidebarToggle" aria-label="Recolher menu"
+                            class="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-slate-500 transition hover:bg-slate-100 hover:text-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400">
+                        <svg class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m11 17-5-5 5-5M18 17l-5-5 5-5" /></svg>
+                        <span class="sb-hide">Recolher</span>
+                    </button>
+                </div>
+            </aside>
+
+            <!-- ============================= CONTEÚDO ============================= -->
+            <main class="min-w-0 flex-1 overflow-y-auto">
+                <!-- ===== Banner de boas-vindas (cartão claro) ===== -->
+                <div class="mb-6 flex flex-wrap items-center justify-between gap-x-6 gap-y-4 rounded-2xl border border-slate-900/5 bg-white px-6 py-5 shadow-[0_1px_2px_rgba(15,23,42,.04),0_12px_28px_-14px_rgba(15,23,42,.18)]">
+                    <div class="flex min-w-0 items-center gap-4">
+                        <!-- Ícone -->
+                        <span class="hidden h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-600 ring-1 ring-brand-100 sm:flex">
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" /></svg>
+                        </span>
+                        <div class="min-w-0">
+                            <!-- Breadcrumb -->
+                            <nav class="flex items-center gap-1.5 text-xs font-medium text-slate-400" aria-label="Trilho">
+                                <span>Painel Inicial</span>
+                                <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
+                                <span class="text-slate-600">Cobrança Tributária</span>
+                            </nav>
+                            <h1 class="mt-1 truncate text-2xl font-bold leading-tight text-slate-800">Bem-vindo(a), <span class="text-brand-700">Adrian</span></h1>
+                            <p class="mt-1 text-sm text-slate-500">Acompanhe a cobrança de tributos e a evolução mensal do município em tempo real.</p>
+                        </div>
+                    </div>
+                    <!-- Ação -->
+                    <button class="inline-flex shrink-0 items-center gap-2 rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400">
+                        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" /></svg>
+                        Actualizar
+                    </button>
+                </div>
 
                 <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
                     <!-- Munícipes (céu) -->
-                    <div class="rounded-2xl bg-white p-6 shadow-[0_8px_24px_-12px_rgba(15,23,42,0.12)] ring-1 ring-slate-900/5 transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_36px_-14px_rgba(15,23,42,0.2)] hover:ring-slate-900/10">
+                    <div class="depth-card p-4">
                         <div class="flex items-start justify-between">
-                            <p class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Total de Munícipes</p>
-                            <svg class="h-5 w-5 shrink-0 text-sky-500" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" /></svg>
-                        </div>
-                        <div class="mt-5 flex items-end gap-2.5">
-                            <p class="text-4xl font-extrabold tracking-tight text-slate-800 tabular-nums">84.230</p>
-                            <span class="mb-1 inline-flex items-center gap-0.5 text-xs font-semibold text-emerald-600">
-                                <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m5 12 7-7 7 7M12 19V5" /></svg>12%
+                            <span class="flex h-9 w-9 items-center justify-center rounded-lg bg-sky-50 text-sky-500">
+                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" /></svg>
+                            </span>
+                            <span class="inline-flex items-center gap-0.5 rounded-full bg-emerald-50 px-2 py-0.5 text-xs font-semibold text-emerald-600">
+                                <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m5 12 7-7 7 7M12 19V5" /></svg>12%
                             </span>
                         </div>
-                        <p class="mt-3 text-xs text-slate-400">vs. mês anterior</p>
-                        <span class="mt-4 block h-1 w-10 rounded-full bg-sky-400"></span>
+                        <p class="mt-3 text-2xl font-extrabold tracking-tight text-slate-800 tabular-nums">84.230</p>
+                        <p class="mt-1 text-[11px] font-semibold uppercase tracking-wider text-slate-400">Total de Munícipes</p>
+                        <svg class="mt-2 h-7 w-full text-sky-400" viewBox="0 0 100 32" preserveAspectRatio="none" fill="none"><polyline points="0,26 17,22 33,24 50,15 67,12 83,8 100,4" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
                     </div>
                     <!-- Viaturas (esmeralda) -->
-                    <div class="rounded-2xl bg-white p-6 shadow-[0_8px_24px_-12px_rgba(15,23,42,0.12)] ring-1 ring-slate-900/5 transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_36px_-14px_rgba(15,23,42,0.2)] hover:ring-slate-900/10">
+                    <div class="depth-card p-4">
                         <div class="flex items-start justify-between">
-                            <p class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Total de Viaturas</p>
-                            <svg class="h-5 w-5 shrink-0 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 0 0-10.026 0 1.106 1.106 0 0 0-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" /></svg>
-                        </div>
-                        <div class="mt-5 flex items-end gap-2.5">
-                            <p class="text-4xl font-extrabold tracking-tight text-slate-800 tabular-nums">3.157</p>
-                            <span class="mb-1 inline-flex items-center gap-0.5 text-xs font-semibold text-emerald-600">
-                                <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m5 12 7-7 7 7M12 19V5" /></svg>4%
+                            <span class="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-50 text-emerald-500">
+                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 0 0-10.026 0 1.106 1.106 0 0 0-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" /></svg>
+                            </span>
+                            <span class="inline-flex items-center gap-0.5 rounded-full bg-emerald-50 px-2 py-0.5 text-xs font-semibold text-emerald-600">
+                                <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m5 12 7-7 7 7M12 19V5" /></svg>4%
                             </span>
                         </div>
-                        <p class="mt-3 text-xs text-slate-400">vs. mês anterior</p>
-                        <span class="mt-4 block h-1 w-10 rounded-full bg-emerald-400"></span>
+                        <p class="mt-3 text-2xl font-extrabold tracking-tight text-slate-800 tabular-nums">3.157</p>
+                        <p class="mt-1 text-[11px] font-semibold uppercase tracking-wider text-slate-400">Total de Viaturas</p>
+                        <svg class="mt-2 h-7 w-full text-emerald-400" viewBox="0 0 100 32" preserveAspectRatio="none" fill="none"><polyline points="0,24 17,20 33,22 50,17 67,13 83,11 100,8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
                     </div>
                     <!-- Receitas (sol) -->
-                    <div class="rounded-2xl bg-white p-6 shadow-[0_8px_24px_-12px_rgba(15,23,42,0.12)] ring-1 ring-slate-900/5 transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_36px_-14px_rgba(15,23,42,0.2)] hover:ring-slate-900/10">
+                    <div class="depth-card p-4">
                         <div class="flex items-start justify-between">
-                            <p class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Receitas do Mês</p>
-                            <svg class="h-5 w-5 shrink-0 text-gold-600" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
-                        </div>
-                        <div class="mt-5 flex items-end gap-2.5">
-                            <p class="text-4xl font-extrabold tracking-tight text-slate-800 tabular-nums">MT 4,82M</p>
-                            <span class="mb-1 inline-flex items-center gap-0.5 text-xs font-semibold text-emerald-600">
-                                <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m5 12 7-7 7 7M12 19V5" /></svg>8%
+                            <span class="flex h-9 w-9 items-center justify-center rounded-lg bg-amber-50 text-gold-600">
+                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
+                            </span>
+                            <span class="inline-flex items-center gap-0.5 rounded-full bg-emerald-50 px-2 py-0.5 text-xs font-semibold text-emerald-600">
+                                <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m5 12 7-7 7 7M12 19V5" /></svg>8%
                             </span>
                         </div>
-                        <p class="mt-3 text-xs text-slate-400">vs. mês anterior</p>
-                        <span class="mt-4 block h-1 w-10 rounded-full bg-gold-400"></span>
+                        <p class="mt-3 text-2xl font-extrabold tracking-tight text-slate-800 tabular-nums">MT 4,82M</p>
+                        <p class="mt-1 text-[11px] font-semibold uppercase tracking-wider text-slate-400">Receitas do Mês</p>
+                        <svg class="mt-2 h-7 w-full text-gold-400" viewBox="0 0 100 32" preserveAspectRatio="none" fill="none"><polyline points="0,27 17,23 33,25 50,16 67,14 83,9 100,5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
                     </div>
                     <!-- Pendentes (alerta) -->
-                    <div class="rounded-2xl bg-white p-6 shadow-[0_8px_24px_-12px_rgba(15,23,42,0.12)] ring-1 ring-slate-900/5 transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_36px_-14px_rgba(15,23,42,0.2)] hover:ring-slate-900/10">
+                    <div class="depth-card p-4">
                         <div class="flex items-start justify-between">
-                            <p class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Processos Pendentes</p>
-                            <svg class="h-5 w-5 shrink-0 text-rose-500" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" /></svg>
-                        </div>
-                        <div class="mt-5 flex items-end gap-2.5">
-                            <p class="text-4xl font-extrabold tracking-tight text-slate-800 tabular-nums">327</p>
-                            <span class="mb-1 inline-flex items-center gap-0.5 text-xs font-semibold text-rose-600">
-                                <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m5 12 7-7 7 7M12 19V5" /></svg>5%
+                            <span class="flex h-9 w-9 items-center justify-center rounded-lg bg-rose-50 text-rose-500">
+                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" /></svg>
+                            </span>
+                            <span class="inline-flex items-center gap-0.5 rounded-full bg-rose-50 px-2 py-0.5 text-xs font-semibold text-rose-600">
+                                <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m5 12 7-7 7 7M12 19V5" /></svg>5%
                             </span>
                         </div>
-                        <p class="mt-3 text-xs text-slate-400">vs. mês anterior</p>
-                        <span class="mt-4 block h-1 w-10 rounded-full bg-rose-400"></span>
+                        <p class="mt-3 text-2xl font-extrabold tracking-tight text-slate-800 tabular-nums">327</p>
+                        <p class="mt-1 text-[11px] font-semibold uppercase tracking-wider text-slate-400">Processos Pendentes</p>
+                        <svg class="mt-2 h-7 w-full text-rose-400" viewBox="0 0 100 32" preserveAspectRatio="none" fill="none"><polyline points="0,22 17,20 33,21 50,16 67,14 83,12 100,7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
                     </div>
                 </div>
 
                 <div class="mt-6 grid grid-cols-1 gap-5 xl:grid-cols-3">
-                    <div class="rounded-2xl bg-white p-6 shadow-[0_8px_24px_-12px_rgba(15,23,42,0.12)] ring-1 ring-slate-900/5 xl:col-span-2">
+                    <div class="depth-card p-6 xl:col-span-2">
                         <h2 class="font-semibold text-slate-800">Receitas mensais — 2026</h2>
                         <p class="text-sm text-slate-400">Cobrança de tributos (em milhões de MT)</p>
-                        <div class="mt-5 flex h-56 items-center justify-center rounded-xl bg-slate-50 text-sm text-slate-400">Gráfico</div>
+                        <div class="relative mt-5 h-60"><canvas id="receitasChart"></canvas></div>
                     </div>
-                    <div class="rounded-2xl bg-white p-6 shadow-[0_8px_24px_-12px_rgba(15,23,42,0.12)] ring-1 ring-slate-900/5">
+                    <div class="depth-card p-6">
                         <h2 class="font-semibold text-slate-800">Processos por estado</h2>
                         <p class="text-sm text-slate-400">Total acumulado</p>
-                        <div class="mt-5 flex h-56 items-center justify-center rounded-xl bg-slate-50 text-sm text-slate-400">Gráfico</div>
+                        <div class="relative mt-5 h-60"><canvas id="processosChart"></canvas></div>
                     </div>
                 </div>
             </main>
@@ -358,6 +390,73 @@
                 localStorage.setItem(KEY, collapsed ? '1' : '0');
                 syncLabel(collapsed);
             });
+
+            // Submenus recolhíveis (ignorados quando a sidebar está recolhida)
+            document.querySelectorAll('[data-submenu-toggle]').forEach(function (btn) {
+                btn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    if (sidebar.classList.contains('is-collapsed')) return;
+                    btn.closest('.nav-item').classList.toggle('is-open');
+                });
+            });
+        })();
+    </script>
+
+    <!-- Gráficos do Painel (Chart.js) -->
+    <script src="../assets/js/vendor/Chart.min.js"></script>
+    <script>
+        (function () {
+            if (typeof Chart === 'undefined') return;
+            var PRIMARY = '#1F9E74', PRIMARY_LIGHT = '#5FC2A0',
+                SUCCESS = '#16A34A', WARNING = '#E0A526';
+
+            var elReceitas = document.getElementById('receitasChart');
+            if (elReceitas) {
+                new Chart(elReceitas.getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                        datasets: [{
+                            label: 'Receitas (milhões MT)',
+                            data: [3.1, 3.6, 4.0, 3.8, 4.4, 4.82, 0, 0, 0, 0, 0, 0],
+                            backgroundColor: PRIMARY,
+                            hoverBackgroundColor: PRIMARY_LIGHT,
+                            borderRadius: 6,
+                            maxBarThickness: 34
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        legend: { display: false },
+                        scales: {
+                            yAxes: [{ ticks: { beginAtZero: true }, gridLines: { color: '#EDF1F7' } }],
+                            xAxes: [{ gridLines: { display: false } }]
+                        }
+                    }
+                });
+            }
+
+            var elProcessos = document.getElementById('processosChart');
+            if (elProcessos) {
+                new Chart(elProcessos.getContext('2d'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Concluídos', 'Em curso', 'Pendentes'],
+                        datasets: [{
+                            data: [1240, 410, 327],
+                            backgroundColor: [SUCCESS, PRIMARY, WARNING],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutoutPercentage: 68,
+                        legend: { position: 'bottom' }
+                    }
+                });
+            }
         })();
     </script>
 </body>
