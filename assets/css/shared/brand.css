@@ -38,6 +38,39 @@ body,
 }
 
 /* ============================================================
+   AUTENTICAÇÃO — marca ampliada com destaque branco
+   ============================================================ */
+.layout-login .navbar-light {
+  margin-top: 0.5rem;
+  margin-bottom: 2rem !important;
+}
+.layout-login .navbar-light .navbar-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.9rem 1.15rem;
+  background: #ffffff !important;
+  border: 1px solid rgba(31, 158, 116, 0.12);
+  border-radius: 18px;
+  box-shadow: 0 18px 34px -26px rgba(34, 48, 63, 0.28);
+}
+.layout-login .navbar-light .navbar-brand:hover {
+  text-decoration: none;
+  box-shadow: 0 22px 38px -28px rgba(34, 48, 63, 0.34);
+}
+.layout-login .navbar-light .navbar-brand-icon {
+  height: 64px !important;
+  width: auto !important;
+  max-width: none !important;
+}
+.layout-login .navbar-light .navbar-brand span {
+  color: var(--brand-ink) !important;
+  font-size: 1.2rem;
+  font-weight: 800 !important;
+  letter-spacing: 0.2px;
+}
+
+/* ============================================================
    TOPBAR — verde cheio, texto e ícones brancos
    ============================================================ */
 .navbar.navbar-light,
